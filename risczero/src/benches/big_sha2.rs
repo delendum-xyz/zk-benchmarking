@@ -1,80 +1,100 @@
-use rand::{rngs::StdRng, RngCore};
+use rand::{rngs::StdRng, RngCore, SeedableRng};
 use risc0_zkp::core::{
     sha::{Digest, Sha},
     sha_cpu,
 };
-use risc0_zkvm::host::Prover;
+use risc0_zkvm::host::{Prover, Receipt};
 use risc0_zkvm::serde::to_vec;
-use thiserror::Error;
 
-use crate::{Benchmark, BenchmarkError};
+use rustbench::Benchmark;
 
 pub struct Job {
     pub guest_input: Vec<u32>,
+    pub prover: Option<Prover<'static>>,
 }
 
-#[derive(Error, Debug)]
-pub enum JobError {
-    #[error("Hashes do not match! host: `{host_compute}`; guest: `{guest_compute}`")]
-    HostMismatch {
-        host_compute: Digest,
-        guest_compute: Digest,
-    },
+pub fn new_jobs() -> Vec<Job> {
+    let mut rand = StdRng::seed_from_u64(1337);
+    let mut jobs = Vec::new();
+    for job_size in [1024, 2048, 4096, 8192] {
+        let mut guest_input = vec![0; job_size];
+        for i in 0..guest_input.len() {
+            guest_input[i] = rand.next_u32();
+        }
+
+        jobs.push(Job::new(guest_input));
+    }
+    jobs
 }
+
+const METHOD_ID: &'static [u8] = risczero_benchmark_methods::BIG_SHA2_ID;
+const METHOD_PATH: &'static str = risczero_benchmark_methods::BIG_SHA2_PATH;
 
 impl Benchmark for Job {
-    type OutType = Digest;
-    type Error = JobError;
-    const METHOD_ID: &'static [u8] = risczero_benchmark_methods::BIG_SHA2_ID;
-    const METHOD_PATH: &'static str = risczero_benchmark_methods::BIG_SHA2_PATH;
+    const NAME: &'static str = "big_sha2";
+    type Spec = Vec<u32>;
+    type ComputeOut = Digest;
+    type ProofType = Receipt;
 
-    fn new_jobs(rand: &mut StdRng) -> Vec<Self> {
-        let mut jobs = Vec::new();
-        for job_size in [1024, 2048, 4096, 8192] {
-            let mut guest_input = vec![0; job_size];
-            for i in 0..guest_input.len() {
-                guest_input[i] = rand.next_u32();
-            }
+    fn job_size(spec: &Self::Spec) -> u32 {
+        (spec.len() * 4) as u32
+    }
 
-            jobs.push(Job { guest_input });
+    fn output_size_bytes(_output: &Self::ComputeOut, proof: &Self::ProofType) -> u32 {
+        (proof.get_journal().expect("journal").len()) as u32
+    }
+
+    fn proof_size_bytes(proof: &Self::ProofType) -> u32 {
+        (proof.get_seal().expect("seal").len() * 4) as u32
+    }
+
+    fn new(spec: Self::Spec) -> Self {
+        Job {
+            guest_input: spec,
+            prover: None,
         }
-        jobs
     }
 
-    fn name(&self) -> String {
-        String::from("big_sha2")
+    fn spec(&self) -> &Self::Spec {
+        &self.guest_input
     }
 
-    fn job_size(&self) -> u32 {
-        self.guest_input.len() as u32
-    }
-
-    fn host_compute(&self) -> Result<Self::OutType, BenchmarkError<Self::Error>> {
+    fn host_compute(&mut self) -> Self::ComputeOut {
         let hasher = sha_cpu::Impl {};
-        Ok(*hasher.hash_words(&self.guest_input))
+        *hasher.hash_words(&self.guest_input)
     }
 
-    fn new_prover(&self) -> Result<Prover, BenchmarkError<Self::Error>> {
-        let method_code = std::fs::read(Self::METHOD_PATH)?;
-        let mut prover = Prover::new(&method_code, Self::METHOD_ID)?;
-        prover.add_input(to_vec(&self.guest_input).unwrap().as_slice())?;
-        Ok(prover)
+    fn init_guest_compute(&mut self) {
+        let image = std::fs::read(METHOD_PATH).expect("image");
+        let mut prover = Prover::new(&image, METHOD_ID).expect("prover");
+        prover.add_input(to_vec(&self.guest_input).unwrap().as_slice()).expect("prover input");
+
+        self.prover = Some(prover);
     }
 
-    fn check_journal(
-        &self,
-        host_compute: Self::OutType,
-        journal: Vec<u32>,
-    ) -> Result<(), BenchmarkError<Self::Error>> {
-        let guest_compute: Digest = Digest::from_slice(&journal);
+    fn guest_compute(&mut self) -> (Self::ComputeOut, Self::ProofType) {
+        let prover = self.prover.as_ref().expect("prover");
+        let receipt = prover.run().expect("receipt");
 
-        if &host_compute != &guest_compute {
-            return Err(BenchmarkError::JobError(JobError::HostMismatch {
-                host_compute,
-                guest_compute,
-            }));
-        }
+        let journal = receipt.get_journal_vec().expect("journal");
+        let guest_output: Digest = Digest::from_slice(&journal);
+        (guest_output, receipt)
+    }
 
-        Ok(())
+    fn verify_proof(&self, _output: &Self::ComputeOut, proof: &Self::ProofType) -> bool {
+        proof.verify(METHOD_ID).is_ok()
+    }
+
+    fn corrupt_proof(&self, proof: Self::ProofType) -> Self::ProofType {
+        let journal = {
+            let mut journal = Vec::from(proof.get_journal().expect("journal"));
+            let alter_i = 3;
+            let bit = (journal[alter_i] ^ 1) & 0x01;
+            let rest = journal[alter_i] & 0xfe;
+            journal[alter_i] = rest | bit;
+
+            journal
+        };
+        Receipt::new(&journal, proof.get_seal().expect("seal")).expect("receipt")
     }
 }
