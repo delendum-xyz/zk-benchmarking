@@ -1,4 +1,6 @@
-# risczero
+# RISC Zero
+
+Benchmarks for [RISC Zero](https://github.com/risc0/risc0).
 
 ## Benchmarks
 
@@ -6,7 +8,7 @@
 
 Computes the SHA2-256 hash of large random buffers of various sizes.
 
-## Running the benchmark
+## Running the benchmarks
 
 ```console
 $ cargo run --release
