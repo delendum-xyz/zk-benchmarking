@@ -25,8 +25,8 @@ pub enum JobError {
 impl Benchmark for Job {
     type OutType = Digest;
     type Error = JobError;
-    const METHOD_ID: &'static [u8] = risczero_zkvm_benchmark_methods::BIG_SHA2_ID;
-    const METHOD_PATH: &'static str = risczero_zkvm_benchmark_methods::BIG_SHA2_PATH;
+    const METHOD_ID: &'static [u8] = risczero_benchmark_methods::BIG_SHA2_ID;
+    const METHOD_PATH: &'static str = risczero_benchmark_methods::BIG_SHA2_PATH;
 
     fn new_jobs(rand: &mut StdRng) -> Vec<Self> {
         let mut jobs = Vec::new();
