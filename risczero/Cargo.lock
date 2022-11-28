@@ -1268,8 +1268,8 @@ dependencies = [
  "risc0-zkp",
  "risc0-zkvm",
  "risczero-benchmark-methods",
+ "rustbench",
  "serde",
- "thiserror",
 ]
 
 [[package]]
@@ -1278,6 +1278,10 @@ version = "0.1.0"
 dependencies = [
  "risc0-build",
 ]
+
+[[package]]
+name = "rustbench"
+version = "0.1.0"
 
 [[package]]
 name = "rustls"
