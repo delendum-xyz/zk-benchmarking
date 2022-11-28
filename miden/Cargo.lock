@@ -157,6 +157,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "miden-benchmark"
+version = "0.1.0"
+dependencies = [
+ "miden",
+ "miden-stdlib",
+]
+
+[[package]]
 name = "miden-core"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -424,12 +432,4 @@ dependencies = [
  "winter-fri",
  "winter-math",
  "winter-utils",
-]
-
-[[package]]
-name = "zkp-benchmarking"
-version = "0.1.0"
-dependencies = [
- "miden",
- "miden-stdlib",
 ]
