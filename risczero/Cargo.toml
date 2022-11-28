@@ -1,0 +1,12 @@
+[package]
+name = "risczero-benchmark"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+risczero-benchmark-methods = { path = "methods" }
+risc0-zkvm = "0.11"
+risc0-zkp = "0.11"
+rand = "0.8"
+serde = "1.0"
+thiserror = "1.0"
