@@ -12,16 +12,14 @@ The goal of this repo is to have a consolidated, neutral, and community-driven p
 
 ## Running the benchmarks
 
-### Miden
+### Requirements
+
+* [`cargo`](https://doc.rust-lang.org/stable/cargo/)
+
+### Running all of the benchmarks
 
 ```console
-$ cargo run --release --bin miden-benchmark
-```
-
-### RISC Zero
-
-```console
-$ cargo run --release --bin risczero-benchmark
+$ ./all.sh
 ```
 
 ## Contributing
