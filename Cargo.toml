@@ -1,6 +1,0 @@
-[workspace]
-members = [
-    "miden",
-    "risczero",
-    "risczero/methods"
-]
