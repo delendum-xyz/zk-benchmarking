@@ -10,5 +10,19 @@ The goal of this repo is to have a consolidated, neutral, and community-driven p
 | Miden VM | [default (96 bits of security)](https://github.com/maticnetwork/miden/blob/e941cf8dc6397a830d9073c8730389248e82f8e1/air/src/options.rs#L29) | Blake3 | building block | | |
 | Miden VM | [default (96 bits of security)](https://github.com/maticnetwork/miden/blob/e941cf8dc6397a830d9073c8730389248e82f8e1/air/src/options.rs#L29) | recursion | | | recursion support not yet available |
 
+## Running the benchmarks
+
+### Miden
+
+```console
+$ cargo run --release --bin miden-benchmark
+```
+
+### RISC Zero
+
+```console
+$ cargo run --release --bin risczero-benchmark
+```
+
 ## Contributing
 Stay tuned

@@ -1,4 +1,4 @@
-# risczero-zkvm
+# risczero
 
 ## Benchmarks
 

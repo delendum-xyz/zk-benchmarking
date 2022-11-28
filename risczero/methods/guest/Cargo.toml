@@ -1,5 +1,5 @@
 [package]
-name = "risczero-zkvm-benchmark-methods-guest"
+name = "risczero-benchmark-methods-guest"
 version = "0.1.0"
 edition = "2021"
 
