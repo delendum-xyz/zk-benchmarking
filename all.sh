@@ -14,7 +14,16 @@ run_benchmark () {
     echo ""
 }
 
+# Print the date and time in GMT
+echo -n "Start time: "
+TZ=GMT date +"%Y%m%d%H%M%S"
+echo ""
+
 ######################################################################
 #             Team              Directory       Command
 run_benchmark "Polygon Miden"   "miden"         "cargo run --release"
 run_benchmark "RISC Zero"       "risczero"      "cargo run --release"
+
+# Print the date and time in GMT
+echo -n "End time: "
+TZ=GMT date +"%Y%m%d%H%M%S"
