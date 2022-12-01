@@ -10,7 +10,7 @@ edition = "2021"
 [dependencies]
 miden = "0.3.0"
 miden-core = "0.3.0"
-winter-utils = "0.4.2"
 miden-prover = "0.3.0"
 miden-stdlib = "0.2.0"
+miden-verifier = "0.3.0"
 rustbench = { path = "../rustbench" }
