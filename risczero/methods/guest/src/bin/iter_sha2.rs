@@ -11,9 +11,10 @@ pub fn main() {
 
     let num_iter: u32 = guest_input[0];
 
-    let mut hash = &guest_input[1..];
+    let mut hash = &guest_input[1..9];
     for _i in 0 .. num_iter {
-        hash = hasher.hash_words(&hash).get();
+        let bytes: Vec<u8> = hash.iter().map(|x| x.to_be_bytes()).flatten().collect();
+        hash = hasher.hash_bytes(&bytes).get();
     }
 
     env::commit(&Vec::from(hash))
