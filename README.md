@@ -1,4 +1,4 @@
-# zk-benchmarking
+# ZK Benchmarking
 
 The goal of this repo is to have a consolidated, neutral, and community-driven place for benchmarking performance of zero knowledge proving systems.
 
