@@ -10,3 +10,4 @@ risc0-zkvm = "0.11"
 risc0-zkp = "0.11"
 rustbench = { path = "../rustbench" }
 serde = "1.0"
+sha2 = "0.10"

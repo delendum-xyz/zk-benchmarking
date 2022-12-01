@@ -1270,6 +1270,7 @@ dependencies = [
  "risczero-benchmark-methods",
  "rustbench",
  "serde",
+ "sha2",
 ]
 
 [[package]]
