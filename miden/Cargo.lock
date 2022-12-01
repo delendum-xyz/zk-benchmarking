@@ -165,6 +165,7 @@ dependencies = [
  "miden-prover",
  "miden-stdlib",
  "rustbench",
+ "winter-utils",
 ]
 
 [[package]]
