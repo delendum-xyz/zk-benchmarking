@@ -37,7 +37,7 @@ impl Metrics {
 pub trait Benchmark {
     const NAME: &'static str;
     type Spec;
-    type ComputeOut;
+    type ComputeOut: Eq + core::fmt::Debug;
     type ProofType;
 
     fn job_size(spec: &Self::Spec) -> u32;
@@ -47,6 +47,10 @@ pub trait Benchmark {
     fn new(spec: Self::Spec) -> Self;
 
     fn spec(&self) -> &Self::Spec;
+
+    fn host_compute(&mut self) -> Option<Self::ComputeOut> {
+        None
+    }
 
     fn guest_compute(&mut self) -> (Self::ComputeOut, Self::ProofType);
     fn verify_proof(&self, output: &Self::ComputeOut, proof: &Self::ProofType) -> bool;
@@ -61,6 +65,10 @@ pub trait Benchmark {
             metrics.proof_duration = start.elapsed();
             result
         };
+
+        if let Some(h_output) = self.host_compute() {
+            assert_eq!(g_output, h_output);
+        }
 
         metrics.output_bytes = Self::output_size_bytes(&g_output, &proof);
         metrics.proof_bytes = Self::proof_size_bytes(&proof);
