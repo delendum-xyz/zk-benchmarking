@@ -164,8 +164,8 @@ dependencies = [
  "miden-core",
  "miden-prover",
  "miden-stdlib",
+ "miden-verifier",
  "rustbench",
- "winter-utils",
 ]
 
 [[package]]
