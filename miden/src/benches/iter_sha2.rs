@@ -89,6 +89,10 @@ impl Benchmark for Job {
         (Vec::from(output.stack()), proof)
     }
 
+    fn host_compute(&mut self) -> Option<<Self as Benchmark>::ComputeOut> {
+        todo!()
+    }
+
     fn verify_proof(&self, _output: &Self::ComputeOut, _proof: &Self::ProofType) -> bool {
         true // TODO!
     }
