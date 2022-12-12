@@ -72,6 +72,8 @@ For each benchmark, we measure the performance of these tasks:
 
 ### Iterated hashing
 
+(Scenario type: building block)
+
 Compute `H(H(H(...H(x))))`, where `H()` is a cryptographic hash function, for some input `x`.
 
 | ZK system     | Hash function |
@@ -82,6 +84,12 @@ Compute `H(H(H(...H(x))))`, where `H()` is a cryptographic hash function, for so
 | RISC Zero     | SHA2-256      |
 
 ### Merkle inclusion
+
+(Scenario type: building block)
+
+*Coming soon!*
+
+### Recursion
 
 *Coming soon!*
 
