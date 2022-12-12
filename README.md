@@ -1,7 +1,14 @@
 # ZK Benchmarking
 
-The goal of this repo is to have a consolidated, neutral, and community-driven place for benchmarking performance of zero knowledge proving systems.
+zk-benchmarking is a suite of benchmarks designed to compare different zero-knowledge proof libraries. Zero-knowledge proof libraries are used to enable privacy-preserving transactions and other cryptographic protocols, and it's important to be able to compare the performance of different implementations to choose the best one for a given use case.
 
+With zk-benchmarking, you can run a suite of standardized benchmarks against different zero-knowledge proof libraries and see how they perform in terms of speed, memory usage, and other metrics. This can help you make informed decisions about which library is the best choice for your needs.
+
+Features:
+
+* A collection of standard benchmarks for comparing the performance of different zero-knowledge proof libraries.
+* The ability to run the benchmarks against multiple libraries and compare the results.
+* Outputs results in a easy-to-read format, including graphs and tables.
 
 ## ZK systems
 
@@ -77,4 +84,7 @@ $ ./all.sh
 ```
 
 ## Contributing
-Stay tuned
+
+If you would like to contribute to zk-benchmarking, please fork the repository and submit a pull request with your changes. All contributions are welcome, including new benchmarks and improvements to existing ones.
+
+
