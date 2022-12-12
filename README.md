@@ -17,7 +17,6 @@ Features:
 * [RISC Zero](https://github.com/risc0/risc0/)
   * Default security
 
-
 ## Principles
 
 ### Relevant
@@ -36,12 +35,9 @@ We allow each proof system to interpret each benchmark in whatever way makes the
 
 Our measurements are automated and reproducible.
 
-
 ## Factors
 
-### Security
-
-What is the security model? How many "bits of security" does the system offer?
+What are the relevant factors when picking a ZK system?
 
 ### Performance
 
@@ -53,6 +49,24 @@ For each benchmark, we measure the performance of these tasks:
 * Verifying a valid proof
 * Rejecting an invalid proof
 
+### Security
+
+* What is the security model? 
+* How many "bits of security" does the system offer? 
+* Is it post-quantum? 
+* What hash functions does it support?
+
+### Ease of building new apps
+
+* How hard is it to write new apps for the platform?
+* Does it require custom circuits?
+* Does it support custom circuits?
+* Are there libraries and developer tools? How mature are they?
+
+### Upgradability/maintainability
+
+* Is the VM tightly coupled to its cryptographic core? Or is there an abstraction layer between them?
+* If a new breakthrough in ZKPs took place tomorrow, would the VM be able to incorporate the new advances without breaking existing apps?
 
 ## Benchmarks
 
