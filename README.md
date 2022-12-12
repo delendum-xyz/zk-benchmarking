@@ -70,6 +70,8 @@ For each benchmark, we measure the performance of these tasks:
 
 ## Benchmarks
 
+We start with smaller computations and will eventually move on to larger end-to-end scenarios (e.g., integrity of modified images).
+
 ### Iterated hashing
 
 (Scenario type: building block)
