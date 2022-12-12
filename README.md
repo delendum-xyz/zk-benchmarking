@@ -63,7 +63,7 @@ For each benchmark, we measure the performance of these tasks:
 * Does it support custom circuits?
 * Are there libraries and developer tools? How mature are they?
 
-### Upgradability/maintainability
+### Upgradability
 
 * Is the VM tightly coupled to its cryptographic core? Or is there an abstraction layer between them?
 * If a new breakthrough in ZKPs took place tomorrow, would the VM be able to incorporate the new advances without breaking existing apps?
