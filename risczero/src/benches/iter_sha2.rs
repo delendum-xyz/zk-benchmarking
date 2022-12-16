@@ -74,17 +74,4 @@ impl Benchmark for Job {
     fn verify_proof(&self, _output: &Self::ComputeOut, proof: &Self::ProofType) -> bool {
         proof.verify(METHOD_ID).is_ok()
     }
-
-    fn corrupt_proof(&self, proof: Self::ProofType) -> Self::ProofType {
-        let journal = {
-            let mut journal = Vec::from(proof.get_journal().expect("journal"));
-            let alter_i = 3;
-            let bit = (journal[alter_i] ^ 1) & 0x01;
-            let rest = journal[alter_i] & 0xfe;
-            journal[alter_i] = rest | bit;
-
-            journal
-        };
-        Receipt::new(&journal, proof.get_seal().expect("seal")).expect("receipt")
-    }
 }
