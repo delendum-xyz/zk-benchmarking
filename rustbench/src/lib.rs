@@ -5,7 +5,6 @@ pub struct Metrics {
     pub job_size: u32,
     pub proof_duration: Duration,
     pub verify_duration: Duration,
-    pub falsify_duration: Duration,
     pub output_bytes: u32,
     pub proof_bytes: u32,
 }
@@ -17,7 +16,6 @@ impl Metrics {
             job_size,
             proof_duration: Duration::default(),
             verify_duration: Duration::default(),
-            falsify_duration: Duration::default(),
             output_bytes: 0,
             proof_bytes: 0,
         }
@@ -28,7 +26,6 @@ impl Metrics {
         println!("{}job_size:           {:?}", prefix, &self.job_size);
         println!("{}proof_duration:     {:?}", prefix, &self.proof_duration);
         println!("{}verify_duration:    {:?}", prefix, &self.verify_duration);
-        println!("{}falsify_duration:   {:?}", prefix, &self.falsify_duration);
         println!("{}output_bytes:       {:?}", prefix, &self.output_bytes);
         println!("{}proof_bytes:        {:?}", prefix, &self.proof_bytes);
     }
@@ -54,7 +51,6 @@ pub trait Benchmark {
 
     fn guest_compute(&mut self) -> (Self::ComputeOut, Self::ProofType);
     fn verify_proof(&self, output: &Self::ComputeOut, proof: &Self::ProofType) -> bool;
-    fn corrupt_proof(&self, proof: Self::ProofType) -> Self::ProofType;
 
     fn run(&mut self) -> Metrics {
         let mut metrics = Metrics::new(String::from(Self::NAME), Self::job_size(self.spec()));
@@ -77,15 +73,6 @@ pub trait Benchmark {
             let start = Instant::now();
             let result = self.verify_proof(&g_output, &proof);
             metrics.verify_duration = start.elapsed();
-            result
-        };
-
-        let corrupt_proof = self.corrupt_proof(proof);
-
-        let _corrupt_verify_proof = {
-            let start = Instant::now();
-            let result = self.verify_proof(&g_output, &corrupt_proof);
-            metrics.falsify_duration = start.elapsed();
             result
         };
 
