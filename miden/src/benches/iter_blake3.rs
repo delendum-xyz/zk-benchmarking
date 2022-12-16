@@ -1,4 +1,6 @@
-use miden::{Assembler, FieldExtension, HashFunction, Program, ProgramInputs, ProofOptions};
+use miden::{Assembler, Program, ProgramInputs, ProofOptions};
+use miden_crypto::hash::blake::Blake3_256;
+use miden_core::{StarkField, ProgramOutputs};
 use miden_stdlib::StdLibrary;
 use rustbench::Benchmark;
 
@@ -10,7 +12,7 @@ pub struct Job {
 }
 
 pub fn new_jobs() -> Vec<<Job as Benchmark>::Spec> {
-    vec![100]
+    vec![1, 10, 100]
 }
 
 impl Benchmark for Job {
@@ -38,19 +40,21 @@ impl Benchmark for Job {
 
             begin
                 repeat.{}
-                    exec.blake3::hash
+                    exec.blake3::hash_1to1
                 end
             end",
             num_iter
         );
 
-        // We need to add here what we want to hash. Atm we hash '1'
-        // We can also use secret inputs using the advice provider
-        let mut input = Vec::new();
-        input.push(1);
+        // We can also transform the input_data into 8-byte arrays and
+        // then parse each 8-byte array into a u64
+        let input = vec![0u64; 4];
 
         // compiling the program
-        let assembler = Assembler::new().with_module_provider(StdLibrary::default());
+        let assembler = Assembler::default()
+            .with_library(&StdLibrary::default())
+            .expect("failed to load stdlib");
+        
         let program = assembler
             .compile(source.as_str())
             .expect("Could not compile source");
@@ -58,15 +62,7 @@ impl Benchmark for Job {
         let program_input = ProgramInputs::from_stack_inputs(&input).unwrap();
 
         // default (96 bits of security)
-        let proof_options = ProofOptions::new(
-            27,
-            8,
-            16,
-            HashFunction::Blake3_192,
-            FieldExtension::Quadratic,
-            8,
-            256,
-        );
+        let proof_options = ProofOptions::with_96_bit_security();
 
         Job {
             num_iter,
@@ -86,15 +82,71 @@ impl Benchmark for Job {
         let proof_options = &self.proof_options;
 
         let (output, proof) = miden::prove(program, program_input, proof_options).expect("results");
-        (Vec::from(output.stack()), proof)
+        
+        let stack = output
+            .stack_outputs(8)
+            .iter()
+            .cloned()
+            .map(|x| x )
+            .collect::<Vec<_>>();
+
+        (stack, proof)
     }
 
     fn host_compute(&mut self) -> Option<<Self as Benchmark>::ComputeOut> {
-        todo!()
+        // We also hash a vector of 32 0's
+        let input = [0u8; 32];
+        let mut output = input;
+
+        for _ in 0..self.num_iter {
+            
+            let pre_output = Blake3_256::hash(&output);
+
+            output = pre_output.into();
+
+        }
+
+        let mut h_output = Vec::<u64>::new();
+
+        for i in 0..=7 {
+            let bytes = u32::from_ne_bytes(output[i*4..(i*4)+4].try_into().unwrap());
+            h_output.push(bytes.into());
+        }
+
+        Some(h_output)
     }
 
-    fn verify_proof(&self, _output: &Self::ComputeOut, _proof: &Self::ProofType) -> bool {
-        true // TODO!
+    fn verify_proof(&self, output: &Self::ComputeOut, proof: &Self::ProofType) -> bool {
+        let program = &self.program;
+        let stack_inputs = self
+            .program_input
+            .stack_init()
+            .iter()
+            .map(|x| x.as_int())
+            .collect::<Vec<u64>>();
+
+        let mut stack = output
+            .iter()
+            .cloned()
+            .rev()
+            .collect::<Vec<_>>();
+        
+        // We need 16 elements in the stack to verify 
+        let mut stack_rest = vec![0u64; 12];
+        stack.append(&mut stack_rest);
+
+        let program_outputs = ProgramOutputs::new(stack, vec![]);
+
+        let stark_proof = proof.clone();
+
+        let result =
+            miden_verifier::verify(program.hash(), &stack_inputs, &program_outputs, stark_proof)
+                .map_err(|err| format!("Program failed verification! - {}", err));
+
+        match result {
+            Ok(_) => true,
+            Err(_err) => false,
+        }
     }
 
     fn corrupt_proof(&self, proof: Self::ProofType) -> Self::ProofType {
