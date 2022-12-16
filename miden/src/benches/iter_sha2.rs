@@ -143,8 +143,4 @@ impl Benchmark for Job {
             Err(_err) => false,
         }
     }
-
-    fn corrupt_proof(&self, proof: Self::ProofType) -> Self::ProofType {
-        proof // TODO!
-    }
 }
