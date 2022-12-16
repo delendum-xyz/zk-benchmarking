@@ -70,6 +70,11 @@ impl Benchmark for Job {
     }
 
     fn verify_proof(&self, _output: &Self::ComputeOut, proof: &Self::ProofType) -> bool {
-        proof.verify(METHOD_ID).is_ok()
+        let result = proof.verify(METHOD_ID);
+
+        match result {
+            Ok(_) => true,
+            Err(err) => { println!("{}", err); false},
+        }
     }
 }
