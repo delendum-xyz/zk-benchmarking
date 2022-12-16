@@ -1,9 +1,38 @@
+use std::path::PathBuf;
+use clap::{Parser, Subcommand};
+
 mod benches;
 
 use benches::*;
-use rustbench::run_jobs;
+use rustbench::{init_logging, run_jobs};
+
+#[derive(Parser)]
+#[command(author, version, about, long_about = None)]
+struct Cli {
+    // CSV output file
+    #[arg(long, value_name = "FILE")]
+    out: PathBuf,
+
+    #[command(subcommand)]
+    command: Command,
+}
+
+#[derive(Eq, PartialEq, Subcommand)]
+enum Command {
+    All,
+    BigSha2,
+    IterSha2,
+}
 
 fn main() {
-    // run_jobs::<big_sha2::Job>(big_sha2::new_jobs());
-    run_jobs::<iter_sha2::Job>(iter_sha2::new_jobs());
+    init_logging();
+    let cli = Cli::parse();
+
+    if cli.command == Command::All || cli.command == Command::BigSha2 {
+        run_jobs::<big_sha2::Job>(&cli.out, big_sha2::new_jobs());
+    }
+
+    if cli.command == Command::All || cli.command == Command::IterSha2 {
+        run_jobs::<iter_sha2::Job>(&cli.out, iter_sha2::new_jobs());
+    }
 }

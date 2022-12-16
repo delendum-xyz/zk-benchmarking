@@ -23,8 +23,8 @@ echo ""
 
 ######################################################################
 #             Team              Directory       Command
-run_benchmark "Polygon Miden"   "miden"         "cargo run --release"
-run_benchmark "RISC Zero"       "risczero"      "cargo run --release"
+run_benchmark "Polygon Miden"   "miden"         "cargo run --release -- --out metrics.csv all"
+run_benchmark "RISC Zero"       "risczero"      "cargo run --release -- --out metrics.csv all"
 
 # Print the date and time in GMT
 echo -n "End time: "
