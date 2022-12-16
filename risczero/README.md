@@ -11,5 +11,5 @@ Computes the SHA2-256 hash of large random buffers of various sizes.
 ## Running the benchmarks
 
 ```console
-$ cargo run --release
+$ RUST_LOG=info cargo run --release
 ```

@@ -1,5 +1,7 @@
 use std::time::{Duration, Instant};
 
+use log::info;
+
 pub struct Metrics {
     pub job_name: String,
     pub job_size: u32,
@@ -22,12 +24,12 @@ impl Metrics {
     }
 
     pub fn println(&self, prefix: &str) {
-        println!("{}job_name:           {:?}", prefix, &self.job_name);
-        println!("{}job_size:           {:?}", prefix, &self.job_size);
-        println!("{}proof_duration:     {:?}", prefix, &self.proof_duration);
-        println!("{}verify_duration:    {:?}", prefix, &self.verify_duration);
-        println!("{}output_bytes:       {:?}", prefix, &self.output_bytes);
-        println!("{}proof_bytes:        {:?}", prefix, &self.proof_bytes);
+        info!("{}job_name:           {:?}", prefix, &self.job_name);
+        info!("{}job_size:           {:?}", prefix, &self.job_size);
+        info!("{}proof_duration:     {:?}", prefix, &self.proof_duration);
+        info!("{}verify_duration:    {:?}", prefix, &self.verify_duration);
+        info!("{}output_bytes:       {:?}", prefix, &self.output_bytes);
+        info!("{}proof_bytes:        {:?}", prefix, &self.proof_bytes);
     }
 }
 
@@ -84,24 +86,26 @@ pub trait Benchmark {
 }
 
 pub fn run_jobs<B: Benchmark>(specs: Vec<B::Spec>) -> Vec<Metrics> {
+    env_logger::init();
+
     let mut all_metrics: Vec<Metrics> = Vec::new();
 
     for spec in specs {
         let mut job = B::new(spec);
         let job_number = all_metrics.len();
 
-        println!("");
+        info!("");
 
-        println!("+ begin job_number:   {} {}", job_number, B::NAME);
+        info!("+ begin job_number:   {} {}", job_number, B::NAME);
         let job_metrics = job.run();
         job_metrics.println("+ ");
-        println!("+ end job_number:     {}", job_number);
+        info!("+ end job_number:     {}", job_number);
 
         all_metrics.push(job_metrics);
     }
 
-    println!("- jobs:               {}", all_metrics.len());
-    println!("- done");
+    info!("- jobs:               {}", all_metrics.len());
+    info!("- done");
 
     all_metrics
 }

@@ -14,6 +14,8 @@ run_benchmark () {
     echo ""
 }
 
+export RUST_LOG=info
+
 # Print the date and time in GMT
 echo -n "Start time: "
 TZ=GMT date +"%Y%m%d%H%M%S"
