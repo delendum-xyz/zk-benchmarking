@@ -1,4 +1,4 @@
 [toolchain]
-channel = "nightly-2022-08-16"
+channel = "stable-aarch64-apple-darwin"
 components = [ "rustfmt", "rust-src" ]
 profile = "minimal"

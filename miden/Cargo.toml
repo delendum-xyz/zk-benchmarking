@@ -8,9 +8,12 @@ edition = "2021"
 [features]
 
 [dependencies]
-miden = "0.3.0"
+miden = { git = "https://github.com/0xPolygonMiden/miden-vm", branch = "next"}
+miden-crypto = "0.1.0"
 miden-core = "0.3.0"
 miden-prover = "0.3.0"
-miden-stdlib = "0.2.0"
+miden-stdlib = { git = "https://github.com/0xPolygonMiden/miden-vm", branch = "next"}
 miden-verifier = "0.3.0"
 rustbench = { path = "../rustbench" }
+sha2 = "0.10"
+winter-utils = "0.4.2"
