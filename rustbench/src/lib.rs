@@ -1,3 +1,4 @@
+use std::path::PathBuf;
 use std::time::{Duration, Instant};
 
 use log::info;
@@ -85,8 +86,13 @@ pub trait Benchmark {
     }
 }
 
-pub fn run_jobs<B: Benchmark>(specs: Vec<B::Spec>) -> Vec<Metrics> {
+pub fn init_logging() {
     env_logger::init();
+}
+
+pub fn run_jobs<B: Benchmark>(out_path: &PathBuf, specs: Vec<B::Spec>) -> Vec<Metrics> {
+    info!("");
+    info!("Running {} jobs; saving output to {}", specs.len(), out_path.display());
 
     let mut all_metrics: Vec<Metrics> = Vec::new();
 
@@ -104,8 +110,7 @@ pub fn run_jobs<B: Benchmark>(specs: Vec<B::Spec>) -> Vec<Metrics> {
         all_metrics.push(job_metrics);
     }
 
-    info!("- jobs:               {}", all_metrics.len());
-    info!("- done");
+    info!("Finished {} jobs", all_metrics.len());
 
     all_metrics
 }
