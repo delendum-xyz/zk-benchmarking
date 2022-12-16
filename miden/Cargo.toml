@@ -8,6 +8,7 @@ edition = "2021"
 [features]
 
 [dependencies]
+clap = { version = "4.0.27", features = ["derive"] }
 miden = { git = "https://github.com/0xPolygonMiden/miden-vm", branch = "next",  features = ["concurrent"]}
 miden-crypto = "0.1.0"
 miden-core = "0.3.0"
