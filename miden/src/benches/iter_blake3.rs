@@ -1,6 +1,6 @@
 use miden::{Assembler, Program, ProgramInputs, ProofOptions};
+use miden_core::{ProgramOutputs, StarkField};
 use miden_crypto::hash::blake::Blake3_256;
-use miden_core::{StarkField, ProgramOutputs};
 use miden_stdlib::StdLibrary;
 use rustbench::Benchmark;
 
@@ -54,7 +54,7 @@ impl Benchmark for Job {
         let assembler = Assembler::default()
             .with_library(&StdLibrary::default())
             .expect("failed to load stdlib");
-        
+
         let program = assembler
             .compile(source.as_str())
             .expect("Could not compile source");
@@ -82,12 +82,12 @@ impl Benchmark for Job {
         let proof_options = &self.proof_options;
 
         let (output, proof) = miden::prove(program, program_input, proof_options).expect("results");
-        
+
         let stack = output
             .stack_outputs(8)
             .iter()
             .cloned()
-            .map(|x| x )
+            .map(|x| x)
             .collect::<Vec<_>>();
 
         (stack, proof)
@@ -99,17 +99,15 @@ impl Benchmark for Job {
         let mut output = input;
 
         for _ in 0..self.num_iter {
-            
             let pre_output = Blake3_256::hash(&output);
 
             output = pre_output.into();
-
         }
 
         let mut h_output = Vec::<u64>::new();
 
         for i in 0..=7 {
-            let bytes = u32::from_ne_bytes(output[i*4..(i*4)+4].try_into().unwrap());
+            let bytes = u32::from_ne_bytes(output[i * 4..(i * 4) + 4].try_into().unwrap());
             h_output.push(bytes.into());
         }
 
@@ -125,13 +123,9 @@ impl Benchmark for Job {
             .map(|x| x.as_int())
             .collect::<Vec<u64>>();
 
-        let mut stack = output
-            .iter()
-            .cloned()
-            .rev()
-            .collect::<Vec<_>>();
-        
-        // We need 16 elements in the stack to verify 
+        let mut stack = output.iter().cloned().rev().collect::<Vec<_>>();
+
+        // We need 16 elements in the stack to verify
         let mut stack_rest = vec![0u64; 12];
         stack.append(&mut stack_rest);
 
@@ -145,7 +139,10 @@ impl Benchmark for Job {
 
         match result {
             Ok(_) => true,
-            Err(err) => { println!("{}", err); false},
+            Err(err) => {
+                println!("{}", err);
+                false
+            }
         }
     }
 }

@@ -1,8 +1,8 @@
 use miden::{Assembler, Program, ProgramInputs, ProofOptions};
-use sha2::{Digest, Sha256};
-use miden_core::{StarkField, ProgramOutputs};
+use miden_core::{ProgramOutputs, StarkField};
 use miden_stdlib::StdLibrary;
 use rustbench::Benchmark;
+use sha2::{Digest, Sha256};
 
 pub struct Job {
     num_iter: u32,
@@ -54,7 +54,7 @@ impl Benchmark for Job {
         let assembler = Assembler::default()
             .with_library(&StdLibrary::default())
             .expect("failed to load stdlib");
-        
+
         let program = assembler
             .compile(source.as_str())
             .expect("Could not compile source");
@@ -82,12 +82,8 @@ impl Benchmark for Job {
         let proof_options = &self.proof_options;
 
         let (output, proof) = miden::prove(program, program_input, proof_options).expect("results");
-        
-        let stack = output
-            .stack_outputs(8)
-            .iter()
-            .cloned()
-            .collect::<Vec<_>>();
+
+        let stack = output.stack_outputs(8).iter().cloned().collect::<Vec<_>>();
 
         (stack, proof)
     }
@@ -104,7 +100,7 @@ impl Benchmark for Job {
         let mut h_output = Vec::<u64>::new();
 
         for i in 0..=7 {
-            let bytes = u32::from_be_bytes(data[i*4..(i*4)+4].try_into().unwrap());
+            let bytes = u32::from_be_bytes(data[i * 4..(i * 4) + 4].try_into().unwrap());
             h_output.push(bytes.into());
         }
 
@@ -120,13 +116,9 @@ impl Benchmark for Job {
             .map(|x| x.as_int())
             .collect::<Vec<u64>>();
 
-        let mut stack = output
-            .iter()
-            .cloned()
-            .rev()
-            .collect::<Vec<_>>();
-        
-        // We need 16 elements in the stack to verify 
+        let mut stack = output.iter().cloned().rev().collect::<Vec<_>>();
+
+        // We need 16 elements in the stack to verify
         let mut stack_rest = vec![0u64; 12];
         stack.append(&mut stack_rest);
 
@@ -140,7 +132,10 @@ impl Benchmark for Job {
 
         match result {
             Ok(_) => true,
-            Err(err) => { println!("{}", err); false},
+            Err(err) => {
+                println!("{}", err);
+                false
+            }
         }
     }
 }

@@ -1,4 +1,1 @@
-wrap_comments = true
-normalize_comments = true
 reorder_modules = true
-group_imports = "StdExternalCrate"
