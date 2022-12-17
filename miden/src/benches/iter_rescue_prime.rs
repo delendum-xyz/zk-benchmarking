@@ -1,5 +1,5 @@
 use miden::{Assembler, Program, ProgramInputs, ProofOptions};
-use miden_core::{FieldElement, Felt, ProgramOutputs, StarkField, chiplets};
+use miden_core::{chiplets, Felt, FieldElement, ProgramOutputs, StarkField};
 use rustbench::Benchmark;
 
 pub struct Job {
@@ -127,13 +127,9 @@ impl Benchmark for Job {
             .map(|x| x.as_int())
             .collect::<Vec<u64>>();
 
-        let mut stack = output
-            .iter()
-            .cloned()
-            .rev()
-            .collect::<Vec<_>>();
-        
-        // We need 16 elements in the stack to verify 
+        let mut stack = output.iter().cloned().rev().collect::<Vec<_>>();
+
+        // We need 16 elements in the stack to verify
         let mut stack_rest = vec![0u64; 12];
         stack.append(&mut stack_rest);
 
@@ -147,7 +143,10 @@ impl Benchmark for Job {
 
         match result {
             Ok(_) => true,
-            Err(err) => { println!("{}", err); false},
+            Err(err) => {
+                println!("{}", err);
+                false
+            }
         }
     }
 }
