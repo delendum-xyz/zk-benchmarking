@@ -1,7 +1,7 @@
 mod benches;
 
-use benches::iter_rescue_prime;
 use benches::iter_blake3;
+use benches::iter_rescue_prime;
 use benches::iter_sha2;
 use rustbench::run_jobs;
 
