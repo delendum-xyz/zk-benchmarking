@@ -1,0 +1,148 @@
+Start time: 20221220075316
+
+--------------------------------------------------
+Start: Polygon Miden
+--------------------------------------------------
+/zk-benchmarking/miden /zk-benchmarking
+
++ begin job_number:   0 iter_blake3
++ job_name:           "iter_blake3"
++ job_size:           1
++ proof_duration:     1.749511548s
++ verify_duration:    1.031247ms
++ output_bytes:       64
++ proof_bytes:        67652
++ end job_number:     0
+
++ begin job_number:   1 iter_blake3
++ job_name:           "iter_blake3"
++ job_size:           10
++ proof_duration:     15.13739965s
++ verify_duration:    684.386µs
++ output_bytes:       64
++ proof_bytes:        82523
++ end job_number:     1
+
++ begin job_number:   2 iter_blake3
++ job_name:           "iter_blake3"
++ job_size:           100
++ proof_duration:     131.36344634s
++ verify_duration:    4.08915ms
++ output_bytes:       64
++ proof_bytes:        100272
++ end job_number:     2
+- jobs:               3
+- done
+
++ begin job_number:   0 iter_sha2
++ job_name:           "iter_sha2"
++ job_size:           1
++ proof_duration:     3.609526141s
++ verify_duration:    1.908495ms
++ output_bytes:       64
++ proof_bytes:        72578
++ end job_number:     0
+
++ begin job_number:   1 iter_sha2
++ job_name:           "iter_sha2"
++ job_size:           10
++ proof_duration:     33.897126109s
++ verify_duration:    745.697µs
++ output_bytes:       64
++ proof_bytes:        88729
++ end job_number:     1
+
++ begin job_number:   2 iter_sha2
++ job_name:           "iter_sha2"
++ job_size:           100
++ proof_duration:     274.095009046s
++ verify_duration:    852.567µs
++ output_bytes:       64
++ proof_bytes:        108267
++ end job_number:     2
+- jobs:               3
+- done
+
++ begin job_number:   0 iter_rescue_prime
++ job_name:           "iter_rescue_prime"
++ job_size:           1
++ proof_duration:     223.531137ms
++ verify_duration:    3.673769ms
++ output_bytes:       32
++ proof_bytes:        53928
++ end job_number:     0
+
++ begin job_number:   1 iter_rescue_prime
++ job_name:           "iter_rescue_prime"
++ job_size:           10
++ proof_duration:     215.305343ms
++ verify_duration:    3.387552ms
++ output_bytes:       32
++ proof_bytes:        53197
++ end job_number:     1
+
++ begin job_number:   2 iter_rescue_prime
++ job_name:           "iter_rescue_prime"
++ job_size:           100
++ proof_duration:     393.78714ms
++ verify_duration:    3.456024ms
++ output_bytes:       32
++ proof_bytes:        57330
++ end job_number:     2
+
++ begin job_number:   3 iter_rescue_prime
++ job_name:           "iter_rescue_prime"
++ job_size:           1000
++ proof_duration:     3.454656549s
++ verify_duration:    3.813763ms
++ output_bytes:       32
++ proof_bytes:        72436
++ end job_number:     3
+- jobs:               4
+- done
+/zk-benchmarking
+--------------------------------------------------
+Done: Polygon Miden
+--------------------------------------------------
+
+
+--------------------------------------------------
+Start: RISC Zero
+--------------------------------------------------
+/zk-benchmarking/risczero /zk-benchmarking
+
++ begin job_number:   0 iter_sha2
++ job_name:           "iter_sha2"
++ job_size:           1
++ proof_duration:     8.388215643s
++ verify_duration:    3.61948ms
++ output_bytes:       36
++ proof_bytes:        172136
++ end job_number:     0
+
++ begin job_number:   1 iter_sha2
++ job_name:           "iter_sha2"
++ job_size:           10
++ proof_duration:     16.866698935s
++ verify_duration:    4.147164ms
++ output_bytes:       36
++ proof_bytes:        182760
++ end job_number:     1
+
++ begin job_number:   2 iter_sha2
++ job_name:           "iter_sha2"
++ job_size:           100
++ proof_duration:     139.193277547s
++ verify_duration:    4.494177ms
++ output_bytes:       36
++ proof_bytes:        229160
++ end job_number:     2
+- jobs:               3
+- done
+/zk-benchmarking
+--------------------------------------------------
+Done: RISC Zero
+--------------------------------------------------
+
+
+End time: 20221220083113

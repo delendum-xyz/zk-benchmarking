@@ -56,4 +56,6 @@ Edit `[launch-gcp-batch.sh](launch-gcp-batch.sh)` and change the variables based
 
 ### Collecting the results
 
-The simplest way is to [go to your bucket](https://console.cloud.google.com/storage/browser) and download the results using the browser GUI
+The simplest way is to [go to your bucket](https://console.cloud.google.com/storage/browser) and download the results using the browser GUI.
+
+Some example outputs are in [example-output](./example-output) folder
