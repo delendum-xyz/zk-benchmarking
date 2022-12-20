@@ -1,6 +1,6 @@
-use miden::{Assembler, Program, ProgramInputs, ProofOptions};
+use miden::{Assembler, Program, ProgramInputs, ProgramOutputs, ProofOptions};
+use miden_core::StarkField;
 use miden_crypto::hash::blake::Blake3_256;
-use miden_core::{StarkField, ProgramOutputs};
 use miden_stdlib::StdLibrary;
 use rustbench::Benchmark;
 
@@ -9,6 +9,7 @@ pub struct Job {
     program: Program,
     program_input: ProgramInputs,
     proof_options: ProofOptions,
+    program_outputs: ProgramOutputs,
 }
 
 pub fn new_jobs() -> Vec<<Job as Benchmark>::Spec> {
@@ -54,7 +55,7 @@ impl Benchmark for Job {
         let assembler = Assembler::default()
             .with_library(&StdLibrary::default())
             .expect("failed to load stdlib");
-        
+
         let program = assembler
             .compile(source.as_str())
             .expect("Could not compile source");
@@ -64,11 +65,14 @@ impl Benchmark for Job {
         // default (96 bits of security)
         let proof_options = ProofOptions::with_96_bit_security();
 
+        let program_outputs = ProgramOutputs::new(vec![], vec![]);
+
         Job {
             num_iter,
             program,
             program_input,
             proof_options,
+            program_outputs,
         }
     }
 
@@ -82,15 +86,12 @@ impl Benchmark for Job {
         let proof_options = &self.proof_options;
 
         let (output, proof) = miden::prove(program, program_input, proof_options).expect("results");
-        
-        let stack = output
-            .stack_outputs(8)
-            .iter()
-            .cloned()
-            .map(|x| x )
-            .collect::<Vec<_>>();
 
-        (stack, proof)
+        let stack_output = output.stack_outputs(8).to_vec();
+
+        self.program_outputs = output;
+
+        (stack_output, proof)
     }
 
     fn host_compute(&mut self) -> Option<<Self as Benchmark>::ComputeOut> {
@@ -99,49 +100,40 @@ impl Benchmark for Job {
         let mut output = input;
 
         for _ in 0..self.num_iter {
-            
             let pre_output = Blake3_256::hash(&output);
 
             output = pre_output.into();
-
         }
 
         let mut h_output = Vec::<u64>::new();
 
         for i in 0..=7 {
-            let bytes = u32::from_ne_bytes(output[i*4..(i*4)+4].try_into().unwrap());
+            let bytes = u32::from_ne_bytes(output[i * 4..(i * 4) + 4].try_into().unwrap());
             h_output.push(bytes.into());
         }
 
         Some(h_output)
     }
 
-    fn verify_proof(&self, output: &Self::ComputeOut, proof: &Self::ProofType) -> bool {
+    fn verify_proof(&self, _output: &Self::ComputeOut, proof: &Self::ProofType) -> bool {
         let program = &self.program;
-        let stack_inputs = self
+        let program_outputs = &self.program_outputs;
+        let program_input_u64 = self
             .program_input
             .stack_init()
             .iter()
             .map(|x| x.as_int())
             .collect::<Vec<u64>>();
 
-        let mut stack = output
-            .iter()
-            .cloned()
-            .rev()
-            .collect::<Vec<_>>();
-        
-        // We need 16 elements in the stack to verify 
-        let mut stack_rest = vec![0u64; 12];
-        stack.append(&mut stack_rest);
-
-        let program_outputs = ProgramOutputs::new(stack, vec![]);
-
         let stark_proof = proof.clone();
 
-        let result =
-            miden_verifier::verify(program.hash(), &stack_inputs, &program_outputs, stark_proof)
-                .map_err(|err| format!("Program failed verification! - {}", err));
+        let result = miden::verify(
+            program.hash(),
+            &program_input_u64,
+            program_outputs,
+            stark_proof,
+        )
+        .map_err(|err| format!("Program failed verification! - {}", err));
 
         match result {
             Ok(_) => true,
