@@ -1,5 +1,5 @@
-use miden::{Assembler, Program, ProgramInputs, ProofOptions};
-use miden_core::{FieldElement, Felt, ProgramOutputs, StarkField, chiplets};
+use miden::{Assembler, Program, ProgramInputs, ProgramOutputs, ProofOptions};
+use miden_core::{chiplets, Felt, FieldElement, StarkField};
 use rustbench::Benchmark;
 
 pub struct Job {
@@ -7,6 +7,7 @@ pub struct Job {
     program: Program,
     program_input: ProgramInputs,
     proof_options: ProofOptions,
+    program_outputs: ProgramOutputs,
 }
 
 pub fn new_jobs() -> Vec<<Job as Benchmark>::Spec> {
@@ -72,11 +73,14 @@ impl Benchmark for Job {
         // default (96 bits of security)
         let proof_options = ProofOptions::with_96_bit_security();
 
+        let program_outputs = ProgramOutputs::new(vec![], vec![]);
+
         Job {
             num_iter,
             program,
             program_input,
             proof_options,
+            program_outputs,
         }
     }
 
@@ -99,6 +103,8 @@ impl Benchmark for Job {
             .rev()
             .collect::<Vec<_>>();
 
+        self.program_outputs = output;
+
         (stack, proof)
     }
 
@@ -118,32 +124,25 @@ impl Benchmark for Job {
         Some(output.iter().map(|x| x.as_int()).collect::<Vec<u64>>())
     }
 
-    fn verify_proof(&self, output: &Self::ComputeOut, proof: &Self::ProofType) -> bool {
+    fn verify_proof(&self, _output: &Self::ComputeOut, proof: &Self::ProofType) -> bool {
         let program = &self.program;
-        let stack_inputs = self
+        let program_outputs = &self.program_outputs;
+        let program_input_u64 = self
             .program_input
             .stack_init()
             .iter()
             .map(|x| x.as_int())
             .collect::<Vec<u64>>();
 
-        let mut stack = output
-            .iter()
-            .cloned()
-            .rev()
-            .collect::<Vec<_>>();
-        
-        // We need 16 elements in the stack to verify 
-        let mut stack_rest = vec![0u64; 12];
-        stack.append(&mut stack_rest);
-
-        let program_outputs = ProgramOutputs::new(stack, vec![]);
-
         let stark_proof = proof.clone();
 
-        let result =
-            miden_verifier::verify(program.hash(), &stack_inputs, &program_outputs, stark_proof)
-                .map_err(|err| format!("Program failed verification! - {}", err));
+        let result = miden::verify(
+            program.hash(),
+            &program_input_u64,
+            program_outputs,
+            stark_proof,
+        )
+        .map_err(|err| format!("Program failed verification! - {}", err));
 
         match result {
             Ok(_) => true,
