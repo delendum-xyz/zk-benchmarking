@@ -1,21 +1,26 @@
+#![no_std]
 #![no_main]
 
-use risc0_zkvm_guest::{env, sha};
-use risc0_zkp::core::sha::Sha;
+use risc0_zkvm::guest::{env, sha};
+use risc0_zkvm::sha::Sha;
+use risc0_zkp::core::sha::{Digest};
 
-risc0_zkvm_guest::entry!(main);
+risc0_zkvm::entry!(main);
 
 pub fn main() {
     let hasher = sha::Impl { };
-    let guest_input: Vec<u32> = env::read();
+    let data: &[u8] = env::send_recv(0, &[]);
 
-    let num_iter: u32 = guest_input[0];
+    let mut num_iter: u32;
+    num_iter = data[0] as u32;
+    num_iter = num_iter | ((data[1] as u32) << 8);
+    num_iter = num_iter | ((data[2] as u32) << 16);
+    num_iter = num_iter | ((data[3] as u32) << 24);
 
-    let mut hash = &guest_input[1..9];
+    let mut hash = &data[4..];
     for _i in 0 .. num_iter {
-        let bytes: Vec<u8> = hash.iter().map(|x| x.to_be_bytes()).flatten().collect();
-        hash = hasher.hash_bytes(&bytes).get();
+        hash = hasher.hash_bytes(hash).as_bytes();
     }
 
-    env::commit(&Vec::from(hash))
+    env::commit(&Digest::from_bytes(hash))
 }
