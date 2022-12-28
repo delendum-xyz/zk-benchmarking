@@ -74,15 +74,14 @@ pub trait Benchmark {
         metrics.output_bytes = Self::output_size_bytes(&g_output, &proof);
         metrics.proof_bytes = Self::proof_size_bytes(&proof);
 
-        let _verify_proof = {
+        let verify_proof = {
             let start = Instant::now();
             let result = self.verify_proof(&g_output, &proof);
             metrics.verify_duration = start.elapsed();
             result
         };
 
-        // TODO: re-enable this
-        // assert_eq!(verify_proof, true);
+        assert_eq!(verify_proof, true);
 
         metrics
     }
