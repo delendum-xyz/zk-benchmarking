@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+clap = { version = "4.0.27", features = ["derive"] }
 rand = "0.8"
 risczero-benchmark-methods = { path = "methods" }
 risc0-zkvm = "0.11"
