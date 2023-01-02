@@ -7,10 +7,10 @@ edition = "2021"
 
 [dependencies.risc0-zkp]
 version = "1.0.0-rc.2"
-git = "ssh://git@github.com/risc0/risc0.git"
+git = "https://github.com/risc0/risc0.git"
 default-features = false
 
 [dependencies.risc0-zkvm]
 version = "1.0.0-rc.2"
-git = "ssh://git@github.com/risc0/risc0.git"
+git = "https://github.com/risc0/risc0.git"
 default-features = false
