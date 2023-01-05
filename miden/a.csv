@@ -1,0 +1,15 @@
+miden,iter_rescue_prime,1,48453,3582,52799
+miden,iter_rescue_prime,1,36944,3051,53766
+miden,iter_blake3,1,151383,2638,67082
+miden,iter_blake3,10,1077505,2311,81809
+miden,iter_blake3,100,12348038,3155,99480
+miden,iter_sha2,1,267799,2243,74023
+miden,iter_sha2,10,1978132,2451,89594
+miden,iter_sha2,100,31489137,5904,107560
+miden,iter_rescue_prime,1,38644,2492,53721
+miden,iter_rescue_prime,10,32984,2222,51136
+miden,iter_rescue_prime,100,57134,2273,57330
+miden,iter_rescue_prime,1000,282768,2444,73230
+miden,iter_rescue_prime,1,34805,2249,53766
+miden,iter_rescue_prime,1,36109,3099,52799
+miden,iter_rescue_prime,1,37799,2936,53766
