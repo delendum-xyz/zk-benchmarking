@@ -15,7 +15,7 @@ Features:
 * [Polygon Miden](https://github.com/maticnetwork/miden)
  * Default security [(96 bits)](https://github.com/maticnetwork/miden/blob/e941cf8dc6397a830d9073c8730389248e82f8e1/air/src/options.rs#L29)
 * [RISC Zero](https://github.com/risc0/risc0/)
- * Default security[(100 bits)](https://github.com/risc0/risc0/#security)
+ * Default security [(100 bits)](https://github.com/risc0/risc0/#security)
  
 ## Principles
  
@@ -88,7 +88,7 @@ Compute `H(H(H(...H(x))))`, where `H()` is a cryptographic hash function, for so
  
 RISC Zero also benchmarks in `big_sha2` the one-time hashing of large random buffers. Here the `job_size` indicates the size of the buffer.
 
-Here is a sample result:
+Here is a sample result on 64 core Graviton3 machine:
  
 | prover | job_name | job_size | proof_duration_microsec | verify_duration_microsec | proof_bytes |
 | ------|---------|-----------|--------------------------|--------------------------|------------- |
