@@ -88,6 +88,26 @@ Compute `H(H(H(...H(x))))`, where `H()` is a cryptographic hash function, for so
  
 RISC Zero also benchmarks in `big_sha2` the one-time hashing of large random buffers. Here the `job_size` indicates the size of the buffer.
  
+| prover | job_name | job_size | proof_duration_microsec | verify_duration_microsec | proof_bytes |
+| ------|---------|-----------|--------------------------|--------------------------|------------- |
+| miden | iter_blake3 | 1 | 98129 | 3266 | 67699 |
+| miden | iter_blake3 | 10 | 333002 | 3236 | 83300 |
+| miden | iter_blake3 | 100 | 2057812 | 3474 | 100752 |
+| miden | iter_sha2 | 1 | 119980 | 3045 | 72356 |
+| miden | iter_sha2 | 10 | 488678 | 3262 | 89776 |
+| miden | iter_sha2 | 100 | 3988742 | 3544 | 107560 |
+| miden | iter_rescue_prime | 1 | 39060 | 2793 | 53203 |
+| miden | iter_rescue_prime | 10 | 38671 | 2771 | 53284 |
+| miden | iter_rescue_prime | 100 | 51906 | 2809 | 57529 |
+| miden | iter_rescue_prime | 1000 | 125635 | 3042 | 72742 |
+| risczero | big_sha2 | 1024 | 210993 | 2826 | 177684 |
+| risczero | big_sha2 | 2048 | 195997 | 2812 | 177684 |
+| risczero | big_sha2 | 4096 | 400125 | 3028 | 187796 |
+| risczero | big_sha2 | 8192 | 412999 | 3027 | 187796 |
+| risczero | iter_sha2 | 1 | 183968 | 2813 | 177684 |
+| risczero | iter_sha2 | 10 | 397411 | 3032 | 187796 |
+| risczero | iter_sha2 | 100 | 1588670 | 4054 | 210068 |
+ 
 ### Merkle inclusion
  
 (Scenario type: building block)
