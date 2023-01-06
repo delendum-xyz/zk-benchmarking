@@ -87,6 +87,8 @@ Compute `H(H(H(...H(x))))`, where `H()` is a cryptographic hash function, for so
 | RISC Zero     | SHA2-256      |
  
 RISC Zero also benchmarks in `big_sha2` the one-time hashing of large random buffers. Here the `job_size` indicates the size of the buffer.
+
+Here is a sample result:
  
 | prover | job_name | job_size | proof_duration_microsec | verify_duration_microsec | proof_bytes |
 | ------|---------|-----------|--------------------------|--------------------------|------------- |
