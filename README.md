@@ -109,6 +109,28 @@ Here is a sample result on 64 core Graviton3 machine:
 | risczero | iter_sha2 | 1 | 183968 | 2813 | 177684 |
 | risczero | iter_sha2 | 10 | 397411 | 3032 | 187796 |
 | risczero | iter_sha2 | 100 | 1588670 | 4054 | 210068 |
+
+Here is a sample result on Apple M2 Machine with 8 core and 8GB of memory:
+
+| prover   | job_name          | job_size | proof_duration_microsec | verify_duration_microsec | proof_bytes |
+|:---------|:------------------|:---------|:------------------------|:-------------------------|:------------|
+| miden    | iter_blake3       | 1        | 147874                  | 2676                     | 67082       |
+| miden    | iter_blake3       | 10       | 959089                  | 2560                     | 84126       |
+| miden    | iter_blake3       | 100      | 9872282                 | 2522                     | 101418      |
+| miden    | iter_sha2         | 1        | 265071                  | 2261                     | 72580       |
+| miden    | iter_sha2         | 10       | 1911297                 | 2416                     | 88473       |
+| miden    | iter_sha2         | 100      | 40386294                | 3725                     | 107560      |
+| miden    | iter_rescue_prime | 1        | 39911                   | 2444                     | 53721       |
+| miden    | iter_rescue_prime | 10       | 32231                   | 2235                     | 51136       |
+| miden    | iter_rescue_prime | 100      | 52660                   | 2279                     | 57330       |
+| miden    | iter_rescue_prime | 1000     | 277542                  | 2415                     | 71531       |
+| risczero | big_sha2          | 1024     | 646858                  | 1809                     | 177684      |
+| risczero | big_sha2          | 2048     | 686177                  | 1801                     | 177684      |
+| risczero | big_sha2          | 4096     | 1302751                 | 1908                     | 187796      |
+| risczero | big_sha2          | 8192     | 1288511                 | 1924                     | 187796      |
+| risczero | iter_sha2         | 1        | 629756                  | 1807                     | 177684      |
+| risczero | iter_sha2         | 10       | 1285824                 | 1922                     | 187796      |
+| risczero | iter_sha2         | 100      | 5475234                 | 2442                     | 210068      |
  
 ### Merkle inclusion
  
