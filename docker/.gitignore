@@ -1,3 +1,4 @@
 .env
 service-account-key.json
 service-account-key-minified.json
+out.json

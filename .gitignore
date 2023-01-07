@@ -5,3 +5,5 @@
 .idea/**/shelf
 
 .idea/**/contentModel.xml
+
+.DS_Store
