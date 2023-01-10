@@ -87,7 +87,7 @@ Compute `H(H(H(...H(x))))`, where `H()` is a cryptographic hash function, for so
 | RISC Zero     | SHA2-256      |
  
 RISC Zero also benchmarks in `big_sha2` the one-time hashing of large random buffers. Here the `job_size` indicates the size of the buffer.
-___
+
 Here are results on a 64 core Graviton 3 and an Apple M2 machine:
 
 
@@ -177,151 +177,8 @@ Here are results on a 64 core Graviton 3 and an Apple M2 machine:
         </tr>
     </tbody>
 </table>
+ 
 
-___
-
-<table>
-    <thead>
-        <tr>
-            <th rowspan=2 colspan=2>Verification time in ms</th>
-            <th colspan=3>SHA256</th>
-            <th colspan=3>BLAKE3</th>
-            <th colspan=4>RP64_256</th>
-        </tr>
-        <tr>
-            <th>1</th>
-            <th>10</th>
-            <th>100</th>
-            <th>1</th>
-            <th>10</th>
-            <th>100</th>
-            <th>1</th>
-            <th>10</th>
-            <th>100</th>
-            <th>1000</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td colspan=12>Apple M2 8GB RAM </td>
-        </tr>
-        <tr>
-            <td> </td>
-            <td style="text-align:left">Miden</td>
-            <td>2.26</td>
-            <td>2.42</td>
-            <td>3.73</td>
-            <td>2.68</td>
-            <td>2.56</td>
-            <td>2.52</td>
-            <td>2.44</td>
-            <td>2.24</td>
-            <td>2.28</td>
-            <td>2.42</td>
-        </tr>
-        <tr>
-            <td> </td>
-            <td style="text-align:left">RISC Zero</td>
-            <td>1.81</td>
-            <td>1.92</td>
-            <td>2.44</td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-        </tr>
-        <tr>
-            <td colspan=12>AWS Graviton 3</td>
-        </tr>
-        <tr>
-            <td> </td>
-            <td style="text-align:left">Miden</td>
-            <td>3.05</td>
-            <td>3.26</td>
-            <td>3.54</td>
-            <td>3.27</td>
-            <td>3.24</td>
-            <td>3.47</td>
-            <td>2.79</td>
-            <td>2.77</td>
-            <td>2.81</td>
-            <td>3.04</td>
-        </tr>
-        <tr>
-            <td> </td>
-            <td style="text-align:left">RISC Zero</td>
-            <td>2.81</td>
-            <td>3.03</td>
-            <td>4.05</td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-        </tr>
-    </tbody>
-</table>
-
-___
-<table>
-    <thead>
-        <tr>
-            <th rowspan=2 colspan=2>Proof sizes in bytes</th>
-            <th colspan=3>SHA256</th>
-            <th colspan=3>BLAKE3</th>
-            <th colspan=4>RP64_256</th>
-        </tr>
-        <tr>
-            <th>1</th>
-            <th>10</th>
-            <th>100</th>
-            <th>1</th>
-            <th>10</th>
-            <th>100</th>
-            <th>1</th>
-            <th>10</th>
-            <th>100</th>
-            <th>1000</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td> </td>
-            <td style="text-align:left">Miden</td>
-            <td>72356</td>
-            <td>89776</td>
-            <td>107560</td>
-            <td>67699</td>
-            <td>83300</td>
-            <td>100752</td>
-            <td>53203</td>
-            <td>53284</td>
-            <td>57529</td>
-            <td>72742</td>
-        </tr>
-        <tr>
-            <td> </td>
-            <td style="text-align:left">RISC Zero</td>
-            <td>177684</td>
-            <td>187796</td>
-            <td>210068</td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-        </tr>
-       
-</table>
-
-____
 
 ### Merkle inclusion
  
