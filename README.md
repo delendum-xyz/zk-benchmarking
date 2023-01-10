@@ -87,51 +87,242 @@ Compute `H(H(H(...H(x))))`, where `H()` is a cryptographic hash function, for so
 | RISC Zero     | SHA2-256      |
  
 RISC Zero also benchmarks in `big_sha2` the one-time hashing of large random buffers. Here the `job_size` indicates the size of the buffer.
+___
+Here are results on a 64 core Graviton 3 and an Apple M2 machine:
 
-Here is a sample result on 64 core Graviton3 machine:
- 
-| prover | job_name | job_size | proof_duration_microsec | verify_duration_microsec | proof_bytes |
-| ------|---------|-----------|--------------------------|--------------------------|------------- |
-| miden | iter_blake3 | 1 | 98129 | 3266 | 67699 |
-| miden | iter_blake3 | 10 | 333002 | 3236 | 83300 |
-| miden | iter_blake3 | 100 | 2057812 | 3474 | 100752 |
-| miden | iter_sha2 | 1 | 119980 | 3045 | 72356 |
-| miden | iter_sha2 | 10 | 488678 | 3262 | 89776 |
-| miden | iter_sha2 | 100 | 3988742 | 3544 | 107560 |
-| miden | iter_rescue_prime | 1 | 39060 | 2793 | 53203 |
-| miden | iter_rescue_prime | 10 | 38671 | 2771 | 53284 |
-| miden | iter_rescue_prime | 100 | 51906 | 2809 | 57529 |
-| miden | iter_rescue_prime | 1000 | 125635 | 3042 | 72742 |
-| risczero | big_sha2 | 1024 | 210993 | 2826 | 177684 |
-| risczero | big_sha2 | 2048 | 195997 | 2812 | 177684 |
-| risczero | big_sha2 | 4096 | 400125 | 3028 | 187796 |
-| risczero | big_sha2 | 8192 | 412999 | 3027 | 187796 |
-| risczero | iter_sha2 | 1 | 183968 | 2813 | 177684 |
-| risczero | iter_sha2 | 10 | 397411 | 3032 | 187796 |
-| risczero | iter_sha2 | 100 | 1588670 | 4054 | 210068 |
 
-Here is a sample result on Apple M2 Machine with 8 core and 8GB of memory:
+<table>
+    <thead>
+        <tr>
+            <th rowspan=2 colspan=2>Proving time in s</th>
+            <th colspan=3>SHA256</th>
+            <th colspan=3>BLAKE3</th>
+            <th colspan=4>RP64_256</th>
+        </tr>
+        <tr>
+            <th>1</th>
+            <th>10</th>
+            <th>100</th>
+            <th>1</th>
+            <th>10</th>
+            <th>100</th>
+            <th>1</th>
+            <th>10</th>
+            <th>100</th>
+            <th>1000</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan=12>Apple M2 8GB RAM </td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td style="text-align:left">Miden</td>
+            <td>0.27</td>
+            <td>1.91</td>
+            <td>40.39</td>
+            <td>0.15</td>
+            <td>0.96</td>
+            <td>9.87</td>
+            <td>0.04</td>
+            <td>0.03</td>
+            <td>0.05</td>
+            <td>0.28</td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td style="text-align:left">RISC Zero</td>
+            <td>0.63</td>
+            <td>1.29</td>
+            <td>5.48</td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+        </tr>
+        <tr>
+            <td colspan=12>AWS Graviton 3</td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td style="text-align:left">Miden</td>
+            <td>0.12</td>
+            <td>0.49</td>
+            <td>3.99</td>
+            <td>0.10</td>
+            <td>0.33</td>
+            <td>2.06</td>
+            <td>0.04</td>
+            <td>0.04</td>
+            <td>0.05</td>
+            <td>0.13</td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td style="text-align:left">RISC Zero</td>
+            <td>0.18</td>
+            <td>0.40</td>
+            <td>1.59</td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+        </tr>
+    </tbody>
+</table>
 
-| prover   | job_name          | job_size | proof_duration_microsec | verify_duration_microsec | proof_bytes |
-|:---------|:------------------|:---------|:------------------------|:-------------------------|:------------|
-| miden    | iter_blake3       | 1        | 147874                  | 2676                     | 67082       |
-| miden    | iter_blake3       | 10       | 959089                  | 2560                     | 84126       |
-| miden    | iter_blake3       | 100      | 9872282                 | 2522                     | 101418      |
-| miden    | iter_sha2         | 1        | 265071                  | 2261                     | 72580       |
-| miden    | iter_sha2         | 10       | 1911297                 | 2416                     | 88473       |
-| miden    | iter_sha2         | 100      | 40386294                | 3725                     | 107560      |
-| miden    | iter_rescue_prime | 1        | 39911                   | 2444                     | 53721       |
-| miden    | iter_rescue_prime | 10       | 32231                   | 2235                     | 51136       |
-| miden    | iter_rescue_prime | 100      | 52660                   | 2279                     | 57330       |
-| miden    | iter_rescue_prime | 1000     | 277542                  | 2415                     | 71531       |
-| risczero | big_sha2          | 1024     | 646858                  | 1809                     | 177684      |
-| risczero | big_sha2          | 2048     | 686177                  | 1801                     | 177684      |
-| risczero | big_sha2          | 4096     | 1302751                 | 1908                     | 187796      |
-| risczero | big_sha2          | 8192     | 1288511                 | 1924                     | 187796      |
-| risczero | iter_sha2         | 1        | 629756                  | 1807                     | 177684      |
-| risczero | iter_sha2         | 10       | 1285824                 | 1922                     | 187796      |
-| risczero | iter_sha2         | 100      | 5475234                 | 2442                     | 210068      |
- 
+___
+
+<table>
+    <thead>
+        <tr>
+            <th rowspan=2 colspan=2>Verification time in ms</th>
+            <th colspan=3>SHA256</th>
+            <th colspan=3>BLAKE3</th>
+            <th colspan=4>RP64_256</th>
+        </tr>
+        <tr>
+            <th>1</th>
+            <th>10</th>
+            <th>100</th>
+            <th>1</th>
+            <th>10</th>
+            <th>100</th>
+            <th>1</th>
+            <th>10</th>
+            <th>100</th>
+            <th>1000</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan=12>Apple M2 8GB RAM </td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td style="text-align:left">Miden</td>
+            <td>2.26</td>
+            <td>2.42</td>
+            <td>3.73</td>
+            <td>2.68</td>
+            <td>2.56</td>
+            <td>2.52</td>
+            <td>2.44</td>
+            <td>2.24</td>
+            <td>2.28</td>
+            <td>2.42</td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td style="text-align:left">RISC Zero</td>
+            <td>1.81</td>
+            <td>1.92</td>
+            <td>2.44</td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+        </tr>
+        <tr>
+            <td colspan=12>AWS Graviton 3</td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td style="text-align:left">Miden</td>
+            <td>3.05</td>
+            <td>3.26</td>
+            <td>3.54</td>
+            <td>3.27</td>
+            <td>3.24</td>
+            <td>3.47</td>
+            <td>2.79</td>
+            <td>2.77</td>
+            <td>2.81</td>
+            <td>3.04</td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td style="text-align:left">RISC Zero</td>
+            <td>2.81</td>
+            <td>3.03</td>
+            <td>4.05</td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+        </tr>
+    </tbody>
+</table>
+
+___
+<table>
+    <thead>
+        <tr>
+            <th rowspan=2 colspan=2>Proof sizes in bytes</th>
+            <th colspan=3>SHA256</th>
+            <th colspan=3>BLAKE3</th>
+            <th colspan=4>RP64_256</th>
+        </tr>
+        <tr>
+            <th>1</th>
+            <th>10</th>
+            <th>100</th>
+            <th>1</th>
+            <th>10</th>
+            <th>100</th>
+            <th>1</th>
+            <th>10</th>
+            <th>100</th>
+            <th>1000</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td> </td>
+            <td style="text-align:left">Miden</td>
+            <td>72356</td>
+            <td>89776</td>
+            <td>107560</td>
+            <td>67699</td>
+            <td>83300</td>
+            <td>100752</td>
+            <td>53203</td>
+            <td>53284</td>
+            <td>57529</td>
+            <td>72742</td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td style="text-align:left">RISC Zero</td>
+            <td>177684</td>
+            <td>187796</td>
+            <td>210068</td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+        </tr>
+       
+</table>
+
+____
+
 ### Merkle inclusion
  
 (Scenario type: building block)
