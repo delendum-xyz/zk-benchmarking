@@ -268,7 +268,7 @@ checksum = "ec0be4795e2f6a28069bec0b5ff3e2ac9bafc99e6a9a7dc3547996c5c816922c"
 [[package]]
 name = "risc0-circuit-rv32im"
 version = "1.0.0-rc.2"
-source = "git+ssh://git@github.com/risc0/risc0.git#05bba804275b9277a2022ac52496b9cc47336600"
+source = "git+https://github.com/risc0/risc0.git#8df520aeec3796dfaa0b13897005fdbd539b922f"
 dependencies = [
  "anyhow",
  "cc",
@@ -284,7 +284,7 @@ dependencies = [
 [[package]]
 name = "risc0-zeroio"
 version = "1.0.0-rc.2"
-source = "git+ssh://git@github.com/risc0/risc0.git#05bba804275b9277a2022ac52496b9cc47336600"
+source = "git+https://github.com/risc0/risc0.git#8df520aeec3796dfaa0b13897005fdbd539b922f"
 dependencies = [
  "bytemuck",
  "impl-trait-for-tuples",
@@ -296,7 +296,7 @@ dependencies = [
 [[package]]
 name = "risc0-zeroio-derive"
 version = "1.0.0-rc.2"
-source = "git+ssh://git@github.com/risc0/risc0.git#05bba804275b9277a2022ac52496b9cc47336600"
+source = "git+https://github.com/risc0/risc0.git#8df520aeec3796dfaa0b13897005fdbd539b922f"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -306,7 +306,7 @@ dependencies = [
 [[package]]
 name = "risc0-zkp"
 version = "1.0.0-rc.2"
-source = "git+ssh://git@github.com/risc0/risc0.git#05bba804275b9277a2022ac52496b9cc47336600"
+source = "git+https://github.com/risc0/risc0.git#8df520aeec3796dfaa0b13897005fdbd539b922f"
 dependencies = [
  "anyhow",
  "bytemuck",
@@ -323,7 +323,7 @@ dependencies = [
 [[package]]
 name = "risc0-zkvm"
 version = "1.0.0-rc.2"
-source = "git+ssh://git@github.com/risc0/risc0.git#05bba804275b9277a2022ac52496b9cc47336600"
+source = "git+https://github.com/risc0/risc0.git#8df520aeec3796dfaa0b13897005fdbd539b922f"
 dependencies = [
  "anyhow",
  "bytemuck",
@@ -340,7 +340,7 @@ dependencies = [
 [[package]]
 name = "risc0-zkvm-platform"
 version = "1.0.0-rc.2"
-source = "git+ssh://git@github.com/risc0/risc0.git#05bba804275b9277a2022ac52496b9cc47336600"
+source = "git+https://github.com/risc0/risc0.git#8df520aeec3796dfaa0b13897005fdbd539b922f"
 
 [[package]]
 name = "risczero-benchmark-methods-guest"

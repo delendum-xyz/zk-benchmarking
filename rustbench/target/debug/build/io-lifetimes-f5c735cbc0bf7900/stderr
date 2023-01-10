@@ -1,0 +1,19 @@
+error[E0635]: unknown feature `wasi_ext`
+ --> <anon>:1:12
+  |
+1 | #![feature(wasi_ext)]
+  |            ^^^^^^^^
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0635`.
+warning: function `foo` is never used
+ --> <anon>:1:10
+  |
+1 | const fn foo() { panic!() }
+  |          ^^^
+  |
+  = note: `#[warn(dead_code)]` on by default
+
+warning: 1 warning emitted
+
