@@ -11,12 +11,13 @@ Features:
 * Outputs results in a easy-to-read format, including graphs and tables.
  
 ## ZK systems
- 
-* [Polygon Miden](https://github.com/maticnetwork/miden)
- * Default security [(96 bits)](https://github.com/maticnetwork/miden/blob/e941cf8dc6397a830d9073c8730389248e82f8e1/air/src/options.rs#L29)
-* [RISC Zero](https://github.com/risc0/risc0/)
- * Default security [(100 bits)](https://github.com/risc0/risc0/#security)
- 
+Currently, the following ZK systems are benchmarked.
+
+| System        | ZKP System | Default Security Level |
+| ------------- | :--------: | :--------------: |
+| [Polygon Miden](https://github.com/0xPolygonMiden/miden-vm) | STARK | [96 bits](https://github.com/maticnetwork/miden/blob/e941cf8dc6397a830d9073c8730389248e82f8e1/air/src/options.rs#L29) |
+| [RISC Zero](https://github.com/risc0/risc0/) | STARK | [100 bits](https://github.com/risc0/risc0/#security) |
+
 ## Principles
  
 ### Relevant
@@ -75,190 +76,144 @@ We start with smaller computations and will eventually move on to larger end-to-
 ### Iterated hashing
  
 (Scenario type: building block)
-Iterated hashing is an essetial building block for Merkle tree structures and whenever one needs to succinctly commit larger amounts of data.
+Iterated hashing is an essential building block for Merkle tree structures and whenever one needs to succinctly commit larger amounts of data. To benchmark iterative hashing we compute a *hash chain* as `H(H(H(...H(x))))`, where `H()` is a cryptographic hash function, for some input `x`. As input `x` we chose a 32-bytes input `[0_u8; 32]` and the number of invocations of `H()` defines the length of the hash chain.
  
-Compute `H(H(H(...H(x))))`, where `H()` is a cryptographic hash function, for some input `x`. As input `x` we chose a 32-bytes input `[0_u8; 32]` and `job_size` defines the number of iterations.
- 
-| ZK system     | Hash function |
-| ------------- | ------------- |
-| Polygon Miden | Blake3        |
-| Polygon Miden | Rp64_256      |
-| Polygon Miden | SHA2-256      |
-| RISC Zero     | SHA2-256      |
- 
-RISC Zero also benchmarks in `big_sha2` the one-time hashing of large random buffers. Here the `job_size` indicates the size of the buffer.
-___
-Here are results on a 64 core Graviton 3 and an Apple M2 machine:
-
+#### Prover performance
+The table below shows the time it takes to generate a proof for a hash chain of a given length using a given hash function. This time includes the time needed to generate the witness for the computation. Time shown is in **seconds**.
 
 <table>
     <thead>
         <tr>
-            <th rowspan=2 colspan=2>Proving time in s</th>
-            <th colspan=3>SHA256</th>
-            <th colspan=3>BLAKE3</th>
-            <th colspan=4>RP64_256</th>
+            <th rowspan=2 colspan=2>Prover time (sec)</th>
+            <th colspan=2>SHA256</th>
+            <th colspan=2>BLAKE3</th>
+            <th colspan=2>RP64_256</th>
         </tr>
         <tr>
-            <th>1</th>
             <th>10</th>
             <th>100</th>
-            <th>1</th>
             <th>10</th>
             <th>100</th>
-            <th>1</th>
-            <th>10</th>
             <th>100</th>
             <th>1000</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td colspan=12>Apple M2 8GB RAM </td>
+            <td colspan=8>Apple M2 (4P + 4E cores), 8GB RAM </td>
         </tr>
         <tr>
             <td> </td>
-            <td style="text-align:left">Miden</td>
-            <td>0.27</td>
+            <td style="text-align:left">Miden VM</td>
             <td>1.91</td>
             <td>40.39</td>
-            <td>0.15</td>
             <td>0.96</td>
             <td>9.87</td>
-            <td>0.04</td>
-            <td>0.03</td>
             <td>0.05</td>
             <td>0.28</td>
         </tr>
         <tr>
             <td> </td>
             <td style="text-align:left">RISC Zero</td>
-            <td>0.63</td>
             <td>1.29</td>
             <td>5.48</td>
             <td> </td>
             <td> </td>
             <td> </td>
             <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
         </tr>
         <tr>
-            <td colspan=12>AWS Graviton 3</td>
+            <td colspan=8>AWS Graviton 3 (64 cores), 128 GB RAM</td>
         </tr>
         <tr>
             <td> </td>
-            <td style="text-align:left">Miden</td>
-            <td>0.12</td>
+            <td style="text-align:left">Miden VM</td>
             <td>0.49</td>
             <td>3.99</td>
-            <td>0.10</td>
             <td>0.33</td>
             <td>2.06</td>
-            <td>0.04</td>
-            <td>0.04</td>
             <td>0.05</td>
             <td>0.13</td>
         </tr>
         <tr>
             <td> </td>
             <td style="text-align:left">RISC Zero</td>
-            <td>0.18</td>
             <td>0.40</td>
             <td>1.59</td>
             <td> </td>
             <td> </td>
             <td> </td>
             <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
         </tr>
     </tbody>
 </table>
 
-___
+A few notes:
+* For RISC Zero the native hash function is SHA256, while for Miden VM it is Rescue Prime.
+* On Apple-based systems, RISC Zero prover can take advantage of GPU resources.
+
+#### Verifier performance
+The table below shows the time it takes to verify a proof of correctly computing a hash chain of a given length and a given hash function. Time shown is in **milliseconds**.
 
 <table>
     <thead>
         <tr>
-            <th rowspan=2 colspan=2>Verification time in ms</th>
-            <th colspan=3>SHA256</th>
-            <th colspan=3>BLAKE3</th>
-            <th colspan=4>RP64_256</th>
+            <th rowspan=2 colspan=2>Verifier time (ms)</th>
+            <th colspan=2>SHA256</th>
+            <th colspan=2>BLAKE3</th>
+            <th colspan=2>RP64_256</th>
         </tr>
         <tr>
-            <th>1</th>
             <th>10</th>
             <th>100</th>
-            <th>1</th>
             <th>10</th>
             <th>100</th>
-            <th>1</th>
-            <th>10</th>
             <th>100</th>
             <th>1000</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td colspan=12>Apple M2 8GB RAM </td>
+            <td colspan=8>Apple M2 (4P + 4E cores), 8GB RAM </td>
         </tr>
         <tr>
             <td> </td>
-            <td style="text-align:left">Miden</td>
-            <td>2.26</td>
+            <td style="text-align:left">Miden VM</td>
             <td>2.42</td>
             <td>3.73</td>
-            <td>2.68</td>
             <td>2.56</td>
             <td>2.52</td>
-            <td>2.44</td>
-            <td>2.24</td>
             <td>2.28</td>
             <td>2.42</td>
         </tr>
         <tr>
             <td> </td>
             <td style="text-align:left">RISC Zero</td>
-            <td>1.81</td>
             <td>1.92</td>
             <td>2.44</td>
             <td> </td>
             <td> </td>
             <td> </td>
             <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
         </tr>
         <tr>
-            <td colspan=12>AWS Graviton 3</td>
+            <td colspan=8>AWS Graviton 3 (64 cores), 128 GB RAM</td>
         </tr>
         <tr>
             <td> </td>
-            <td style="text-align:left">Miden</td>
-            <td>3.05</td>
+            <td style="text-align:left">Miden VM</td>
             <td>3.26</td>
             <td>3.54</td>
-            <td>3.27</td>
             <td>3.24</td>
             <td>3.47</td>
-            <td>2.79</td>
-            <td>2.77</td>
             <td>2.81</td>
             <td>3.04</td>
         </tr>
         <tr>
             <td> </td>
             <td style="text-align:left">RISC Zero</td>
-            <td>2.81</td>
             <td>3.03</td>
             <td>4.05</td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
             <td> </td>
             <td> </td>
             <td> </td>
@@ -267,52 +222,40 @@ ___
     </tbody>
 </table>
 
-___
+#### Proof size
+The table below shows the size of a generated proof in **kilobytes**. Proof sizes do not depend on the platform used to generate proofs.
+
 <table>
     <thead>
         <tr>
-            <th rowspan=2 colspan=2>Proof sizes in bytes</th>
-            <th colspan=3>SHA256</th>
-            <th colspan=3>BLAKE3</th>
-            <th colspan=4>RP64_256</th>
+            <th rowspan=2>Proof size (KB)</th>
+            <th colspan=2>SHA256</th>
+            <th colspan=2>BLAKE3</th>
+            <th colspan=2>RP64_256</th>
         </tr>
         <tr>
-            <th>1</th>
             <th>10</th>
             <th>100</th>
-            <th>1</th>
             <th>10</th>
             <th>100</th>
-            <th>1</th>
-            <th>10</th>
             <th>100</th>
             <th>1000</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td> </td>
-            <td style="text-align:left">Miden</td>
-            <td>72356</td>
-            <td>89776</td>
-            <td>107560</td>
-            <td>67699</td>
-            <td>83300</td>
-            <td>100752</td>
-            <td>53203</td>
-            <td>53284</td>
-            <td>57529</td>
-            <td>72742</td>
+            <td style="text-align:left">Miden VM</td>
+            <td>87.7</td>
+            <td>105.0</td>
+            <td>81.3</td>
+            <td>98.4</td>
+            <td>56.2</td>
+            <td>71.0</td>
         </tr>
         <tr>
-            <td> </td>
             <td style="text-align:left">RISC Zero</td>
-            <td>177684</td>
-            <td>187796</td>
-            <td>210068</td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
+            <td>183.4</td>
+            <td>205.1</td>
             <td> </td>
             <td> </td>
             <td> </td>
