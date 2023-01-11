@@ -76,9 +76,13 @@ We start with smaller computations and will eventually move on to larger end-to-
 ### Iterated hashing
  
 (Scenario type: building block)
-Iterated hashing is an essential building block for Merkle tree structures and whenever one needs to succinctly commit larger amounts of data. To benchmark iterative hashing we compute a *hash chain* as `H(H(H(...H(x))))`, where `H()` is a cryptographic hash function, for some input `x`. As input `x` we chose a 32-bytes input `[0_u8; 32]` and the number of invocations of `H()` defines the length of the hash chain.
+
+Iterated hashing is an essential building block for Merkle tree structures and whenever one needs to succinctly commit larger amounts of data. 
+
+To benchmark iterative hashing we compute a *hash chain* as `H(H(H(...H(x))))`, where `H()` is a cryptographic hash function, for some input `x`. As input `x` we chose a 32-bytes input `[0_u8; 32]` and the number of invocations of `H()` defines the length of the hash chain.
  
 #### Prover performance
+
 The table below shows the time it takes to generate a proof for a hash chain of a given length using a given hash function. This time includes the time needed to generate the witness for the computation. Time shown is in **seconds**.
 
 <table>
