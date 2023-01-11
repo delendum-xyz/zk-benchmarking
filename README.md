@@ -1,4 +1,4 @@
-# ZK Benchmarking
+# ZK System Benchmarking
  
 zk-benchmarking is a suite of benchmarks designed to compare different zero-knowledge proof libraries. Zero-knowledge proof libraries are used to enable privacy-preserving transactions and other cryptographic protocols, and it's important to be able to compare the performance of different implementations to choose the best one for a given use case.
  
