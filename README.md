@@ -178,7 +178,7 @@ The table below shows the time it takes to verify a proof of correctly computing
     </thead>
     <tbody>
         <tr>
-            <td colspan=8>Apple M2 (4P + 4E cores), 8GB RAM </td>
+            <td colspan=8>Apple M2 (4P + 4E cores), 24GB RAM </td>
         </tr>
         <tr>
             <td> </td>
