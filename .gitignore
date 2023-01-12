@@ -7,3 +7,5 @@
 .idea/**/contentModel.xml
 
 .DS_Store
+risczero/methods/guest/Cargo.lock
+rustbench/Cargo.lock
