@@ -104,23 +104,23 @@ The table below shows the time it takes to generate a proof for a hash chain of 
     </thead>
     <tbody>
         <tr>
-            <td colspan=8>Apple M2 (4P + 4E cores), 8GB RAM </td>
+            <td colspan=8>Apple M2 (4P + 4E cores), 24GB RAM </td>
         </tr>
         <tr>
             <td> </td>
             <td style="text-align:left">Miden VM</td>
-            <td>1.91</td>
-            <td>40.39</td>
-            <td>0.96</td>
-            <td>9.87</td>
+            <td>1.86</td>
+            <td>17.14</td>
+            <td>0.92</td>
+            <td>8.26</td>
             <td>0.05</td>
-            <td>0.28</td>
+            <td>0.25</td>
         </tr>
         <tr>
             <td> </td>
             <td style="text-align:left">RISC Zero</td>
             <td>1.29</td>
-            <td>5.48</td>
+            <td>5.30</td>
             <td> </td>
             <td> </td>
             <td> </td>
