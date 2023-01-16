@@ -75,7 +75,10 @@ impl Benchmark for Job {
 
         match result {
             Ok(_) => true,
-            Err(err) => { println!("{}", err); false},
+            Err(err) => {
+                println!("{}", err);
+                false
+            }
         }
     }
 }
