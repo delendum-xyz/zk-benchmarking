@@ -1,14 +1,14 @@
 #![no_std]
 #![no_main]
 
+use risc0_zkp::core::sha::Digest;
 use risc0_zkvm::guest::{env, sha};
 use risc0_zkvm::sha::Sha;
-use risc0_zkp::core::sha::{Digest};
 
 risc0_zkvm::entry!(main);
 
 pub fn main() {
-    let hasher = sha::Impl { };
+    let hasher = sha::Impl {};
     let data: &[u8] = env::send_recv(0, &[]);
 
     let mut num_iter: u32;
@@ -18,7 +18,7 @@ pub fn main() {
     num_iter = num_iter | ((data[3] as u32) << 24);
 
     let mut hash = &data[4..];
-    for _i in 0 .. num_iter {
+    for _ in 0..num_iter {
         hash = hasher.hash_bytes(hash).as_bytes();
     }
 
