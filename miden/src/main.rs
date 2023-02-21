@@ -6,6 +6,7 @@ mod benches;
 use benches::iter_blake3;
 use benches::iter_rescue_prime;
 use benches::iter_sha2;
+use benches::merkle_path_rescue_prime;
 use rustbench::{init_logging, run_jobs};
 
 #[derive(Parser)]
@@ -25,6 +26,7 @@ enum Command {
     IterBlake3,
     IterSha2,
     IterRescuePrime,
+    MerkePathRescuePrime,
 }
 
 fn main() {
@@ -43,5 +45,9 @@ fn main() {
 
     if cli.command == Command::All || cli.command == Command::IterRescuePrime {
         run_jobs::<iter_rescue_prime::Job>(&prover, &cli.out, iter_rescue_prime::new_jobs());
+    }
+
+    if cli.command == Command::All || cli.command == Command::MerkePathRescuePrime {
+        run_jobs::<merkle_path_rescue_prime::Job>(&prover, &cli.out, merkle_path_rescue_prime::new_jobs());
     }
 }
