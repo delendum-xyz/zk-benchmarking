@@ -1,4 +1,6 @@
-use risc0_zkvm::{Prover, Receipt};
+use risc0_zkvm::prove::Prover;
+use risc0_zkvm::receipt::Receipt;
+use risc0_zkvm::sha::DIGEST_WORDS;
 use rustbench::Benchmark;
 use sha2::{Digest, Sha256};
 
@@ -11,13 +13,13 @@ pub fn new_jobs() -> Vec<<Job as Benchmark>::Spec> {
     vec![1, 10, 100]
 }
 
-const METHOD_ID: &'static [u8] = risczero_benchmark_methods::ITER_SHA2_ID;
+const METHOD_ID: [u32; DIGEST_WORDS] = risczero_benchmark_methods::ITER_SHA2_ID;
 const METHOD_PATH: &'static str = risczero_benchmark_methods::ITER_SHA2_PATH;
 
 impl Benchmark for Job {
     const NAME: &'static str = "iter_sha2";
     type Spec = u32;
-    type ComputeOut = risc0_zkp::core::sha::Digest;
+    type ComputeOut = risc0_zkvm::sha::Digest;
     type ProofType = Receipt;
 
     fn job_size(spec: &Self::Spec) -> u32 {
@@ -59,19 +61,18 @@ impl Benchmark for Job {
             data = hasher.finalize().to_vec();
         }
 
-        Some(risc0_zkp::core::sha::Digest::from_bytes(data.as_slice()))
+        Some(risc0_zkvm::sha::Digest::try_from(data.as_slice()).unwrap())
     }
 
     fn guest_compute(&mut self) -> (Self::ComputeOut, Self::ProofType) {
         let receipt = self.prover.run().expect("receipt");
 
-        let journal = &receipt.get_journal_bytes();
-        let result = risc0_zkp::core::sha::Digest::from_bytes(journal);
+        let result = risc0_zkvm::sha::Digest::try_from(receipt.journal.as_slice()).unwrap();
         (result, receipt)
     }
 
     fn verify_proof(&self, _output: &Self::ComputeOut, proof: &Self::ProofType) -> bool {
-        let result = proof.verify(METHOD_ID);
+        let result = proof.verify(&METHOD_ID);
 
         match result {
             Ok(_) => true,
