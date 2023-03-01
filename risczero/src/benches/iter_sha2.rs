@@ -1,6 +1,5 @@
-use risc0_zkvm::prove::Prover;
-use risc0_zkvm::receipt::Receipt;
 use risc0_zkvm::sha::DIGEST_WORDS;
+use risc0_zkvm::{Prover, Receipt};
 use rustbench::Benchmark;
 use sha2::{Digest, Sha256};
 

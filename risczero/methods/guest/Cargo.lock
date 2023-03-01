@@ -1012,8 +1012,8 @@ dependencies = [
  "cargo_metadata",
  "directories",
  "downloader",
- "risc0-zkvm",
- "risc0-zkvm-platform",
+ "risc0-zkvm 0.13.0 (git+https://github.com/risc0/risc0.git?tag=v0.13.0)",
+ "risc0-zkvm-platform 0.13.0 (git+https://github.com/risc0/risc0.git?tag=v0.13.0)",
  "serde",
  "serde_json",
  "sha2",
@@ -1024,14 +1024,38 @@ dependencies = [
 [[package]]
 name = "risc0-circuit-rv32im"
 version = "0.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1c9cf33f60dad91229dae6c34f2f384f6868163954f7c89e979295358e430994"
+dependencies = [
+ "anyhow",
+ "log",
+ "risc0-core 0.13.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "risc0-zkp 0.13.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "risc0-zkvm-platform 0.13.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "tracing",
+]
+
+[[package]]
+name = "risc0-circuit-rv32im"
+version = "0.13.0"
 source = "git+https://github.com/risc0/risc0.git?tag=v0.13.0#fceb38d371f08700dff7ebbcd013852f91918b02"
 dependencies = [
  "anyhow",
  "log",
- "risc0-core",
- "risc0-zkp",
- "risc0-zkvm-platform",
+ "risc0-core 0.13.0 (git+https://github.com/risc0/risc0.git?tag=v0.13.0)",
+ "risc0-zkp 0.13.0 (git+https://github.com/risc0/risc0.git?tag=v0.13.0)",
+ "risc0-zkvm-platform 0.13.0 (git+https://github.com/risc0/risc0.git?tag=v0.13.0)",
  "tracing",
+]
+
+[[package]]
+name = "risc0-core"
+version = "0.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6a965da4e723f4fc57d8dd9f330cbbac17a096ce83403ed670a8b9da580db9dd"
+dependencies = [
+ "bytemuck",
+ "rand_core",
 ]
 
 [[package]]
@@ -1046,14 +1070,39 @@ dependencies = [
 [[package]]
 name = "risc0-zeroio"
 version = "0.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cf0e17d872b00a7e377ac39784a0a9c1af85447b3f6a948300282d931a69cb95"
+dependencies = [
+ "bytemuck",
+ "impl-trait-for-tuples",
+ "log",
+ "risc0-zeroio-derive 0.13.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "risc0-zkvm-platform 0.13.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "tracing",
+]
+
+[[package]]
+name = "risc0-zeroio"
+version = "0.13.0"
 source = "git+https://github.com/risc0/risc0.git?tag=v0.13.0#fceb38d371f08700dff7ebbcd013852f91918b02"
 dependencies = [
  "bytemuck",
  "impl-trait-for-tuples",
  "log",
- "risc0-zeroio-derive",
- "risc0-zkvm-platform",
+ "risc0-zeroio-derive 0.13.0 (git+https://github.com/risc0/risc0.git?tag=v0.13.0)",
+ "risc0-zkvm-platform 0.13.0 (git+https://github.com/risc0/risc0.git?tag=v0.13.0)",
  "tracing",
+]
+
+[[package]]
+name = "risc0-zeroio-derive"
+version = "0.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a3f4c4c91c76ca39af85e52866079e21216e1e454911a0e8f7ff287c33c50723"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]
@@ -1069,6 +1118,28 @@ dependencies = [
 [[package]]
 name = "risc0-zkp"
 version = "0.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "596ae6f4db68773df7669d090cff513db3e33aa87595e8a966053af5f471d0f8"
+dependencies = [
+ "anyhow",
+ "bytemuck",
+ "digest",
+ "hex",
+ "lazy_static",
+ "log",
+ "paste",
+ "rand_core",
+ "risc0-core 0.13.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "risc0-zeroio 0.13.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "risc0-zkvm-platform 0.13.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde",
+ "sha2",
+ "tracing",
+]
+
+[[package]]
+name = "risc0-zkp"
+version = "0.13.0"
 source = "git+https://github.com/risc0/risc0.git?tag=v0.13.0#fceb38d371f08700dff7ebbcd013852f91918b02"
 dependencies = [
  "anyhow",
@@ -1079,11 +1150,33 @@ dependencies = [
  "log",
  "paste",
  "rand_core",
- "risc0-core",
- "risc0-zeroio",
- "risc0-zkvm-platform",
+ "risc0-core 0.13.0 (git+https://github.com/risc0/risc0.git?tag=v0.13.0)",
+ "risc0-zeroio 0.13.0 (git+https://github.com/risc0/risc0.git?tag=v0.13.0)",
+ "risc0-zkvm-platform 0.13.0 (git+https://github.com/risc0/risc0.git?tag=v0.13.0)",
  "serde",
  "sha2",
+ "tracing",
+]
+
+[[package]]
+name = "risc0-zkvm"
+version = "0.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "418716999a0d02079ac7b87aeb66a955f7b13c4f624a99a546c02317cc89f564"
+dependencies = [
+ "anyhow",
+ "bytemuck",
+ "cfg-if",
+ "hex",
+ "log",
+ "num-derive",
+ "num-traits",
+ "risc0-circuit-rv32im 0.13.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "risc0-core 0.13.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "risc0-zeroio 0.13.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "risc0-zkp 0.13.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "risc0-zkvm-platform 0.13.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde",
  "tracing",
 ]
 
@@ -1100,14 +1193,20 @@ dependencies = [
  "log",
  "num-derive",
  "num-traits",
- "risc0-circuit-rv32im",
- "risc0-core",
- "risc0-zeroio",
- "risc0-zkp",
- "risc0-zkvm-platform",
+ "risc0-circuit-rv32im 0.13.0 (git+https://github.com/risc0/risc0.git?tag=v0.13.0)",
+ "risc0-core 0.13.0 (git+https://github.com/risc0/risc0.git?tag=v0.13.0)",
+ "risc0-zeroio 0.13.0 (git+https://github.com/risc0/risc0.git?tag=v0.13.0)",
+ "risc0-zkp 0.13.0 (git+https://github.com/risc0/risc0.git?tag=v0.13.0)",
+ "risc0-zkvm-platform 0.13.0 (git+https://github.com/risc0/risc0.git?tag=v0.13.0)",
  "serde",
  "tracing",
 ]
+
+[[package]]
+name = "risc0-zkvm-platform"
+version = "0.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "127b7e9c7a8ee290447294bffba7357f90808345ac75199edafe62a2530b54a7"
 
 [[package]]
 name = "risc0-zkvm-platform"
@@ -1119,7 +1218,7 @@ name = "risczero-benchmark-methods-guest"
 version = "0.1.0"
 dependencies = [
  "risc0-build",
- "risc0-zkvm",
+ "risc0-zkvm 0.13.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]

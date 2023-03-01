@@ -9,11 +9,5 @@ edition = "2021"
 tag = "v0.13.0"
 git = "https://github.com/risc0/risc0.git"
 
-[profile.release]
-lto = true
-opt-level = 3
-
-[dependencies.risc0-zkvm]
-tag = "v0.13.0"
-git = "https://github.com/risc0/risc0.git"
-default-features = false
+[dependencies]
+risc0-zkvm = { version = "0.13.0", default-features = false }

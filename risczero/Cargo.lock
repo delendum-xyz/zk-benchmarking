@@ -1402,7 +1402,8 @@ dependencies = [
 [[package]]
 name = "risc0-build"
 version = "0.13.0"
-source = "git+https://github.com/risc0/risc0.git?tag=v0.13.0#fceb38d371f08700dff7ebbcd013852f91918b02"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "728f9e26378a4d4c245e02c08a923ce12f3b3f4c192809f1b595a639059fcc0b"
 dependencies = [
  "cargo_metadata",
  "directories",
@@ -1419,7 +1420,8 @@ dependencies = [
 [[package]]
 name = "risc0-build-kernel"
 version = "0.13.0"
-source = "git+https://github.com/risc0/risc0.git?tag=v0.13.0#fceb38d371f08700dff7ebbcd013852f91918b02"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ea5227365a8906b0d4c9bb5342469291e1855c4622c3066e20d386c5ed1a2094"
 dependencies = [
  "cc",
  "directories",
@@ -1432,7 +1434,8 @@ dependencies = [
 [[package]]
 name = "risc0-circuit-rv32im"
 version = "0.13.0"
-source = "git+https://github.com/risc0/risc0.git?tag=v0.13.0#fceb38d371f08700dff7ebbcd013852f91918b02"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1c9cf33f60dad91229dae6c34f2f384f6868163954f7c89e979295358e430994"
 dependencies = [
  "anyhow",
  "fil-rustacuda",
@@ -1452,7 +1455,8 @@ dependencies = [
 [[package]]
 name = "risc0-core"
 version = "0.13.0"
-source = "git+https://github.com/risc0/risc0.git?tag=v0.13.0#fceb38d371f08700dff7ebbcd013852f91918b02"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6a965da4e723f4fc57d8dd9f330cbbac17a096ce83403ed670a8b9da580db9dd"
 dependencies = [
  "bytemuck",
  "rand_core",
@@ -1461,7 +1465,8 @@ dependencies = [
 [[package]]
 name = "risc0-sys"
 version = "0.13.0"
-source = "git+https://github.com/risc0/risc0.git?tag=v0.13.0#fceb38d371f08700dff7ebbcd013852f91918b02"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3775fe76abe06172e7096d1548cb802244872c0aae4c2d670d63cc7a2e109ac0"
 dependencies = [
  "cc",
  "glob",
@@ -1472,7 +1477,8 @@ dependencies = [
 [[package]]
 name = "risc0-zeroio"
 version = "0.13.0"
-source = "git+https://github.com/risc0/risc0.git?tag=v0.13.0#fceb38d371f08700dff7ebbcd013852f91918b02"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cf0e17d872b00a7e377ac39784a0a9c1af85447b3f6a948300282d931a69cb95"
 dependencies = [
  "bytemuck",
  "impl-trait-for-tuples",
@@ -1485,7 +1491,8 @@ dependencies = [
 [[package]]
 name = "risc0-zeroio-derive"
 version = "0.13.0"
-source = "git+https://github.com/risc0/risc0.git?tag=v0.13.0#fceb38d371f08700dff7ebbcd013852f91918b02"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a3f4c4c91c76ca39af85e52866079e21216e1e454911a0e8f7ff287c33c50723"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1495,7 +1502,8 @@ dependencies = [
 [[package]]
 name = "risc0-zkp"
 version = "0.13.0"
-source = "git+https://github.com/risc0/risc0.git?tag=v0.13.0#fceb38d371f08700dff7ebbcd013852f91918b02"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "596ae6f4db68773df7669d090cff513db3e33aa87595e8a966053af5f471d0f8"
 dependencies = [
  "anyhow",
  "bytemuck",
@@ -1524,7 +1532,8 @@ dependencies = [
 [[package]]
 name = "risc0-zkvm"
 version = "0.13.0"
-source = "git+https://github.com/risc0/risc0.git?tag=v0.13.0#fceb38d371f08700dff7ebbcd013852f91918b02"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "418716999a0d02079ac7b87aeb66a955f7b13c4f624a99a546c02317cc89f564"
 dependencies = [
  "anyhow",
  "bytemuck",
@@ -1550,7 +1559,8 @@ dependencies = [
 [[package]]
 name = "risc0-zkvm-platform"
 version = "0.13.0"
-source = "git+https://github.com/risc0/risc0.git?tag=v0.13.0#fceb38d371f08700dff7ebbcd013852f91918b02"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "127b7e9c7a8ee290447294bffba7357f90808345ac75199edafe62a2530b54a7"
 
 [[package]]
 name = "risczero-benchmark"

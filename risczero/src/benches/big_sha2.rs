@@ -1,7 +1,6 @@
 use rand::{rngs::StdRng, RngCore, SeedableRng};
-use risc0_zkvm::prove::Prover;
-use risc0_zkvm::receipt::Receipt;
 use risc0_zkvm::sha::{Digest, DIGEST_WORDS};
+use risc0_zkvm::{Prover, Receipt};
 use rustbench::Benchmark;
 
 pub struct Job {

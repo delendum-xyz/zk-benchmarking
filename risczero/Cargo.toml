@@ -10,10 +10,7 @@ members = [
 
 [workspace.dependencies]
 risczero-benchmark-methods = { path = "methods" }
-
-[workspace.dependencies.risc0-build]
-tag = "v0.13.0"
-git = "https://github.com/risc0/risc0.git"
+risc0-build = { version = "0.13.0" }
 
 [dependencies]
 clap = { version = "4.0", features = ["derive"] }
@@ -22,17 +19,8 @@ risczero-benchmark-methods = { workspace = true }
 rustbench = { path = "../rustbench" }
 serde = "1.0"
 sha2 = "0.10"
-
-[dependencies.risc0-zkp]
-tag = "v0.13.0"
-git = "https://github.com/risc0/risc0.git"
-default-features = false
-
-[dependencies.risc0-zkvm]
-tag = "v0.13.0"
-git = "https://github.com/risc0/risc0.git"
-default-features = false
-features = ["prove"]
+risc0-zkp = { version = "0.13.0", default-features = false }
+risc0-zkvm = { version = "0.13.0", default-features = false, features = ["prove"] }
 
 [features]
 cuda = ["risc0-zkvm/cuda"]
