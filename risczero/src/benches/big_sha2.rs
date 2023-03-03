@@ -1,5 +1,5 @@
 use rand::{rngs::StdRng, RngCore, SeedableRng};
-use risc0_zkp::core::sha::Digest;
+use risc0_zkvm::sha::{Digest, DIGEST_WORDS};
 use risc0_zkvm::{Prover, Receipt};
 use rustbench::Benchmark;
 
@@ -22,7 +22,7 @@ pub fn new_jobs() -> Vec<<Job as Benchmark>::Spec> {
     jobs
 }
 
-const METHOD_ID: &'static [u8] = risczero_benchmark_methods::BIG_SHA2_ID;
+const METHOD_ID: [u32; DIGEST_WORDS] = risczero_benchmark_methods::BIG_SHA2_ID;
 const METHOD_PATH: &'static str = risczero_benchmark_methods::BIG_SHA2_PATH;
 
 impl Benchmark for Job {
@@ -62,12 +62,12 @@ impl Benchmark for Job {
         let receipt = self.prover.run().expect("receipt");
 
         let journal = receipt.get_journal_bytes();
-        let guest_output: Digest = Digest::from_bytes(journal);
+        let guest_output: Digest = Digest::try_from(journal).unwrap();
         (guest_output, receipt)
     }
 
     fn verify_proof(&self, _output: &Self::ComputeOut, proof: &Self::ProofType) -> bool {
-        let result = proof.verify(METHOD_ID);
+        let result = proof.verify(&METHOD_ID);
 
         match result {
             Ok(_) => true,
