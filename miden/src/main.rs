@@ -26,7 +26,7 @@ enum Command {
     IterBlake3,
     IterSha2,
     IterRescuePrime,
-    MerkePathRescuePrime,
+    MerklePathRescuePrime,
 }
 
 fn main() {
@@ -47,7 +47,11 @@ fn main() {
         run_jobs::<iter_rescue_prime::Job>(&prover, &cli.out, iter_rescue_prime::new_jobs());
     }
 
-    if cli.command == Command::All || cli.command == Command::MerkePathRescuePrime {
-        run_jobs::<merkle_path_rescue_prime::Job>(&prover, &cli.out, merkle_path_rescue_prime::new_jobs());
+    if cli.command == Command::All || cli.command == Command::MerklePathRescuePrime {
+        run_jobs::<merkle_path_rescue_prime::Job>(
+            &prover,
+            &cli.out,
+            merkle_path_rescue_prime::new_jobs(),
+        );
     }
 }

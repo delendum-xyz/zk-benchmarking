@@ -1,24 +1,29 @@
-use miden::{Assembler, Program, ProgramInputs, ProgramOutputs, ProofOptions};
-use miden_core::{chiplets, Felt, FieldElement, StarkField};
+use miden::{
+    math::{Felt, FieldElement, StarkField},
+    AdviceInputs, Assembler, Kernel, MemAdviceProvider, Program, ProgramInfo, ProofOptions,
+    StackInputs, StackOutputs,
+};
+use miden_core::chiplets;
 use rustbench::Benchmark;
 
 pub struct Job {
     num_iter: u32,
     program: Program,
-    program_input: ProgramInputs,
+    program_info: ProgramInfo,
+    program_inputs: StackInputs,
     proof_options: ProofOptions,
-    program_outputs: ProgramOutputs,
+    program_outputs: StackOutputs,
 }
 
 pub fn new_jobs() -> Vec<<Job as Benchmark>::Spec> {
-    vec![1, 10, 100, 1000]
+    vec![10, 100, 1000]
 }
 
 impl Benchmark for Job {
     const NAME: &'static str = "iter_rescue_prime";
     type Spec = u32;
     type ComputeOut = Vec<u64>;
-    type ProofType = miden_prover::StarkProof;
+    type ProofType = miden::ExecutionProof;
 
     fn job_size(spec: &Self::Spec) -> u32 {
         *spec
@@ -37,23 +42,10 @@ impl Benchmark for Job {
             "  
             # stack start: [a3=0, a2=0, a1=0, a0=0, ...]
             begin
-                push.4.0.0.0
-                mem_storew.0 # save [4, 0, 0, 0] into memory location 0
-                swapw
-                push.0.0.0.0 # => stack state [0, 0, 0, 0, a3, a2, a1, a0, 0, 0, 0, 4, ...]
-            
             # compute hash chain
                 repeat.{}
-                    rpperm
-                    mem_loadw.0 # overwrite the top word with [4, 0, 0, 0]
-                    swapw.2
-                    mem_loadw.1 # overwrite top word with [0, 0, 0, 0]
+                    hash
                 end
-            
-                # drop everything but the digest from the stack
-                dropw
-                swapw
-                dropw
             end",
             num_iter
         );
@@ -61,6 +53,9 @@ impl Benchmark for Job {
         // We can also transform the input_data into 8-byte arrays and
         // then parse each 8-byte array into a u64
         let input = vec![0u64; 4];
+        let program_inputs = StackInputs::try_from_values(input)
+            .map_err(|e| e.to_string())
+            .unwrap();
 
         // Compiling the program
         let assembler = Assembler::default();
@@ -68,17 +63,20 @@ impl Benchmark for Job {
             .compile(source.as_str())
             .expect("Could not compile source");
 
-        let program_input = ProgramInputs::from_stack_inputs(&input).unwrap();
+        let program_hash = program.hash();
+        let kernel = Kernel::default();
+        let program_info = ProgramInfo::new(program_hash, kernel);
 
         // default (96 bits of security)
         let proof_options = ProofOptions::with_96_bit_security();
 
-        let program_outputs = ProgramOutputs::new(vec![], vec![]);
+        let program_outputs = StackOutputs::new(vec![], vec![]);
 
         Job {
             num_iter,
             program,
-            program_input,
+            program_info,
+            program_inputs,
             proof_options,
             program_outputs,
         }
@@ -91,21 +89,24 @@ impl Benchmark for Job {
     /// Compute on VM
     fn guest_compute(&mut self) -> (Self::ComputeOut, Self::ProofType) {
         let program = &self.program;
-        let program_input = &self.program_input;
-        let proof_options = &self.proof_options;
+        let program_input = self.program_inputs.clone();
+        let proof_options = self.proof_options.clone();
 
-        let (output, proof) = miden::prove(program, program_input, proof_options).expect("results");
+        // Creating an empty advice provider
+        let advice_inputs = AdviceInputs::default()
+            .with_stack_values(vec![])
+            .map_err(|e| e.to_string());
+        let advice_provider = MemAdviceProvider::from(advice_inputs.unwrap());
 
-        let stack = output
-            .stack_outputs(4)
-            .iter()
-            .cloned()
-            .rev()
-            .collect::<Vec<_>>();
+        let (output, proof) =
+            miden::prove(program, program_input, advice_provider, proof_options).expect("results");
+
+        let mut stack_output = output.stack_truncated(4).to_vec();
+        stack_output.reverse();
 
         self.program_outputs = output;
 
-        (stack, proof)
+        (stack_output, proof)
     }
 
     /// Compute on host CPU
@@ -125,24 +126,13 @@ impl Benchmark for Job {
     }
 
     fn verify_proof(&self, _output: &Self::ComputeOut, proof: &Self::ProofType) -> bool {
-        let program = &self.program;
-        let program_outputs = &self.program_outputs;
-        let program_input_u64 = self
-            .program_input
-            .stack_init()
-            .iter()
-            .map(|x| x.as_int())
-            .collect::<Vec<u64>>();
-
+        let program_info = self.program_info.clone();
+        let program_inputs = self.program_inputs.clone();
+        let program_outputs = self.program_outputs.clone();
         let stark_proof = proof.clone();
 
-        let result = miden::verify(
-            program.hash(),
-            &program_input_u64,
-            program_outputs,
-            stark_proof,
-        )
-        .map_err(|err| format!("Program failed verification! - {}", err));
+        let result = miden::verify(program_info, program_inputs, program_outputs, stark_proof)
+            .map_err(|err| format!("Program failed verification! - {}", err));
 
         match result {
             Ok(_) => true,
