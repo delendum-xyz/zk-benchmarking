@@ -1,6 +1,6 @@
 [package]
 name = "miden-benchmark"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -9,12 +9,12 @@ edition = "2021"
 
 [dependencies]
 clap = { version = "4.0.27", features = ["derive"] }
-miden = { git = "https://github.com/0xPolygonMiden/miden-vm", branch = "next",  features = ["concurrent"]}
-miden-crypto = "0.1.0"
-miden-core = "0.3.0"
-miden-prover = "0.3.0"
-miden-stdlib = { git = "https://github.com/0xPolygonMiden/miden-vm", branch = "next"}
-miden-verifier = "0.3.0"
+miden = { version = "0.5.0", package = "miden-vm", features = ["concurrent"]}
+miden-crypto = "0.3.0"
+miden-core = "0.5.0"
+miden-prover = "0.5.0"
+miden-stdlib = "0.4.0"
+miden-verifier = "0.5.0"
 rustbench = { path = "../rustbench" }
 sha2 = "0.10"
-winter-utils = "0.4.2"
+

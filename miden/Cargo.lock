@@ -380,90 +380,47 @@ dependencies = [
 ]
 
 [[package]]
-name = "miden"
-version = "0.4.0"
-source = "git+https://github.com/0xPolygonMiden/miden-vm?branch=next#ac446be2d908fe76c45248ca13521ce265878f09"
-dependencies = [
- "log",
- "miden-assembly 0.4.0",
- "miden-processor 0.4.0",
- "miden-prover 0.4.0",
- "miden-stdlib",
- "miden-verifier 0.4.0",
-]
-
-[[package]]
 name = "miden-air"
-version = "0.3.0"
+version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5046ab97d8c2b7136601e9430fd0a14e7d6c6cdd648c90c1e6b39186a38b9a8b"
+checksum = "d8bc51e713f071ee768e3215216f219e47746da4360549be548a7fefbde0ad72"
 dependencies = [
- "miden-core 0.3.0",
- "winter-air",
-]
-
-[[package]]
-name = "miden-air"
-version = "0.4.0"
-source = "git+https://github.com/0xPolygonMiden/miden-vm?branch=next#ac446be2d908fe76c45248ca13521ce265878f09"
-dependencies = [
- "miden-core 0.4.0",
+ "miden-core",
  "winter-air",
 ]
 
 [[package]]
 name = "miden-assembly"
-version = "0.3.0"
+version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a04eec160cbd5cf3051ad16a244c3d83e648eddbd3349120dc069f6e309259dc"
+checksum = "510cc81996853be49a3a39c258d79c086fd66b7b3b0d866e09caed4638281b03"
 dependencies = [
- "miden-core 0.3.0",
+ "miden-core",
  "num_enum",
- "winter-crypto",
-]
-
-[[package]]
-name = "miden-assembly"
-version = "0.4.0"
-source = "git+https://github.com/0xPolygonMiden/miden-vm?branch=next#ac446be2d908fe76c45248ca13521ce265878f09"
-dependencies = [
- "miden-core 0.4.0",
- "num_enum",
- "winter-crypto",
 ]
 
 [[package]]
 name = "miden-benchmark"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "clap",
- "miden",
- "miden-core 0.3.0",
- "miden-crypto",
- "miden-prover 0.3.0",
+ "miden-core",
+ "miden-crypto 0.3.0",
+ "miden-prover",
  "miden-stdlib",
- "miden-verifier 0.3.0",
+ "miden-verifier",
+ "miden-vm",
  "rustbench",
  "sha2",
- "winter-utils",
 ]
 
 [[package]]
 name = "miden-core"
-version = "0.3.0"
+version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e75a2446684f44e61afb27bbdbf2458e8ec58c5c55d9bd202981d7cd265f7cf4"
+checksum = "fb38a58b6773c8869adbb2d2db7bec8ad998d3120ae1c8f396572adbfa1a212c"
 dependencies = [
- "winter-crypto",
- "winter-math",
- "winter-utils",
-]
-
-[[package]]
-name = "miden-core"
-version = "0.4.0"
-source = "git+https://github.com/0xPolygonMiden/miden-vm?branch=next#ac446be2d908fe76c45248ca13521ce265878f09"
-dependencies = [
+ "miden-crypto 0.2.0",
  "winter-crypto",
  "winter-math",
  "winter-utils",
@@ -471,9 +428,21 @@ dependencies = [
 
 [[package]]
 name = "miden-crypto"
-version = "0.1.0"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fc3ac88dfa1d4b38d3727e6404324f8fb5562b8232817f808297085f73bb89d2"
+checksum = "2a2946d394b9e5ce4351ccdea70d3a1c8e38870d7ed3d0221ad7acd0f1b80f23"
+dependencies = [
+ "blake3",
+ "winter-crypto",
+ "winter-math",
+ "winter-utils",
+]
+
+[[package]]
+name = "miden-crypto"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0df19c8e89832fa9ecda395ad1838f157b95b087b0086e81fcac00a7baffa3fe"
 dependencies = [
  "blake3",
  "winter-crypto",
@@ -483,77 +452,59 @@ dependencies = [
 
 [[package]]
 name = "miden-processor"
-version = "0.3.0"
+version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fb7a467447a7d6236f3971f91f8c47c8880a01a43c29b0b08285ec50454f02ed"
+checksum = "fb53a4c878237b1062dbe79c875397e2cdb82297ddb6e9ba7e476f29ddca4993"
 dependencies = [
  "log",
- "miden-core 0.3.0",
- "winter-prover",
-]
-
-[[package]]
-name = "miden-processor"
-version = "0.4.0"
-source = "git+https://github.com/0xPolygonMiden/miden-vm?branch=next#ac446be2d908fe76c45248ca13521ce265878f09"
-dependencies = [
- "log",
- "miden-core 0.4.0",
+ "miden-core",
  "winter-prover",
 ]
 
 [[package]]
 name = "miden-prover"
-version = "0.3.0"
+version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2343eaf338770b78fe421f36a3445bb491123e0787006dfa2b98788cd6440ec6"
+checksum = "c116dbc50d9c200d6aeac16da3a34bc60eadd6ed6f756946396dbfff7bf1f90c"
 dependencies = [
  "log",
- "miden-air 0.3.0",
- "miden-core 0.3.0",
- "miden-processor 0.3.0",
- "winter-prover",
-]
-
-[[package]]
-name = "miden-prover"
-version = "0.4.0"
-source = "git+https://github.com/0xPolygonMiden/miden-vm?branch=next#ac446be2d908fe76c45248ca13521ce265878f09"
-dependencies = [
- "log",
- "miden-air 0.4.0",
- "miden-processor 0.4.0",
+ "miden-air",
+ "miden-processor",
  "winter-prover",
 ]
 
 [[package]]
 name = "miden-stdlib"
-version = "0.3.0"
-source = "git+https://github.com/0xPolygonMiden/miden-vm?branch=next#ac446be2d908fe76c45248ca13521ce265878f09"
-dependencies = [
- "miden-assembly 0.4.0",
-]
-
-[[package]]
-name = "miden-verifier"
-version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d942d5b0bdcad47359d52534ef6fbccebffc0c713d2c7ca65ab603c7965c0a8b"
-dependencies = [
- "miden-air 0.3.0",
- "miden-assembly 0.3.0",
- "miden-core 0.3.0",
- "winter-verifier",
-]
-
-[[package]]
-name = "miden-verifier"
 version = "0.4.0"
-source = "git+https://github.com/0xPolygonMiden/miden-vm?branch=next#ac446be2d908fe76c45248ca13521ce265878f09"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "30445c783419bc5fd7b4acf17e51c19d1a2bf8229061530078068f3882de9797"
 dependencies = [
- "miden-air 0.4.0",
- "miden-core 0.4.0",
+ "miden-assembly",
+]
+
+[[package]]
+name = "miden-verifier"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2eeb4aa195e1afb1e4533ed2700759c4f82184725c7efe409c6f08af1a781744"
+dependencies = [
+ "miden-air",
+ "miden-core",
  "winter-verifier",
+]
+
+[[package]]
+name = "miden-vm"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "de9c4b738e0510e5e71a2c4392e8a0fd9f2c77a420034fb6a2feb186fd243be9"
+dependencies = [
+ "log",
+ "miden-assembly",
+ "miden-processor",
+ "miden-prover",
+ "miden-stdlib",
+ "miden-verifier",
 ]
 
 [[package]]
@@ -568,18 +519,18 @@ dependencies = [
 
 [[package]]
 name = "num_enum"
-version = "0.5.7"
+version = "0.5.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cf5395665662ef45796a4ff5486c5d41d29e0c09640af4c5f17fd94ee2c119c9"
+checksum = "1f646caf906c20226733ed5b1374287eb97e3c2a5c227ce668c1f2ce20ae57c9"
 dependencies = [
  "num_enum_derive",
 ]
 
 [[package]]
 name = "num_enum_derive"
-version = "0.5.7"
+version = "0.5.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3b0498641e53dd6ac1a4f22547548caa6864cc4933784319cd1775271c5a46ce"
+checksum = "dcbff9bc912032c62bf65ef1d5aea88983b420f4f839db1e9b0c281a25c9c799"
 dependencies = [
  "proc-macro-crate",
  "proc-macro2",
@@ -654,9 +605,9 @@ dependencies = [
 
 [[package]]
 name = "rayon"
-version = "1.6.1"
+version = "1.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6db3a213adf02b3bcfd2d3846bb41cb22857d131789e01df434fb7e7bc0759b7"
+checksum = "1d2df5196e37bcc87abebc0053e20787d73847bb33134a69841207dd0a47f03b"
 dependencies = [
  "either",
  "rayon-core",
@@ -664,9 +615,9 @@ dependencies = [
 
 [[package]]
 name = "rayon-core"
-version = "1.10.1"
+version = "1.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cac410af5d00ab6884528b4ab69d1e8e146e8d471201800fa1b4524126de6ad3"
+checksum = "4b8f95bd6966f5c87776639160a66bd8ab9895d9d4ab01ddba9fc60661aebe8d"
 dependencies = [
  "crossbeam-channel",
  "crossbeam-deque",
@@ -943,9 +894,9 @@ checksum = "f40009d85759725a34da6d89a94e63d7bdc50a862acf0dbc7c8e488f1edcb6f5"
 
 [[package]]
 name = "winter-air"
-version = "0.4.2"
+version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ef91b335c5fefa4e6d3c6274de75a7744b4eecae2d7ee3778c23570f35f83396"
+checksum = "e575023c30a6de6e7ec1032b4c90e392707c378c851e1af826dade7758619b0e"
 dependencies = [
  "winter-crypto",
  "winter-fri",
@@ -955,9 +906,9 @@ dependencies = [
 
 [[package]]
 name = "winter-crypto"
-version = "0.4.2"
+version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3bd17ea728ff42185c54dfbabaafd0b442207df6b2cc60f74c607d8c01e9c4db"
+checksum = "14c261b86b032c373ed1340e7443c6945b14400726a7e86a19c6e24b1a699b6e"
 dependencies = [
  "blake3",
  "sha3",
@@ -967,9 +918,9 @@ dependencies = [
 
 [[package]]
 name = "winter-fri"
-version = "0.4.2"
+version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2473f8b2c5c553e9f9d4d94b3b7a1e75806b4cdc964004f9bde4b5fc07c10c87"
+checksum = "cb19d1b82d43e696ecb5b8a284137fde62d50f842eccfe5fc4490bd8806f83ca"
 dependencies = [
  "winter-crypto",
  "winter-math",
@@ -978,18 +929,18 @@ dependencies = [
 
 [[package]]
 name = "winter-math"
-version = "0.4.2"
+version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "824b459961e5d679a1eb62ec1a71c85ac25c5d3bfd126874fcd32b591202d896"
+checksum = "fd1b0699114f1fb5da6e0304b2d610e4a489f6637b933d69f0466d48b1d40610"
 dependencies = [
  "winter-utils",
 ]
 
 [[package]]
 name = "winter-prover"
-version = "0.4.2"
+version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3831583fd662f49f23ea39427aba20a9b5ab6326230f7994e843d2bd34524411"
+checksum = "bb8d92ed60f707f17e838403e78dbed72a3fa8c0e25c5a22ac46a677579a7fcf"
 dependencies = [
  "log",
  "winter-air",
@@ -1001,18 +952,18 @@ dependencies = [
 
 [[package]]
 name = "winter-utils"
-version = "0.4.2"
+version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7f0dbf7ca6aa5893b59928718bf1e7dbe7279bb277b5aa4c4898ddf5004f9417"
+checksum = "b258b57f9e8e0d6ffbd3066b2744208242691850f496e36e13448fbbe1048c7c"
 dependencies = [
  "rayon",
 ]
 
 [[package]]
 name = "winter-verifier"
-version = "0.4.2"
+version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "922be4651b76aa80e132386a97d23788e2bc542d37b3c187a39998876a8094b6"
+checksum = "210d747fb58e234d9b062c1082522310f33eec2da7e455a018f1baf547fafc69"
 dependencies = [
  "winter-air",
  "winter-crypto",
