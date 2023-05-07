@@ -1,0 +1,119 @@
+Start time: 20230505215703
+
+--------------------------------------------------
+Start: Polygon Miden
+--------------------------------------------------
+/zk-benchmarking/miden /zk-benchmarking
+
++ begin job_number:   0 iter_blake3
++ job_name:           "iter_blake3"
++ job_size:           1
++ proof_duration:     1.168270275s
++ verify_duration:    578.122µs
++ output_bytes:       64
++ proof_bytes:        66955
++ end job_number:     0
+
++ begin job_number:   1 iter_blake3
++ job_name:           "iter_blake3"
++ job_size:           10
++ proof_duration:     6.932421228s
++ verify_duration:    505.172µs
++ output_bytes:       64
++ proof_bytes:        82215
++ end job_number:     1
+
++ begin job_number:   2 iter_blake3
++ job_name:           "iter_blake3"
++ job_size:           100
++ proof_duration:     61.631246782s
++ verify_duration:    540.23µs
++ output_bytes:       64
++ proof_bytes:        100262
++ end job_number:     2
+- jobs:               3
+- done
+
++ begin job_number:   0 iter_sha2
++ job_name:           "iter_sha2"
++ job_size:           1
++ proof_duration:     1.663982063s
++ verify_duration:    485.393µs
++ output_bytes:       64
++ proof_bytes:        73948
++ end job_number:     0
+
++ begin job_number:   1 iter_sha2
++ job_name:           "iter_sha2"
++ job_size:           10
++ proof_duration:     13.943667561s
++ verify_duration:    520.438µs
++ output_bytes:       64
++ proof_bytes:        89594
++ end job_number:     1
+
++ begin job_number:   2 iter_sha2
++ job_name:           "iter_sha2"
++ job_size:           100
++ proof_duration:     126.567772059s
++ verify_duration:    1.864603ms
++ output_bytes:       64
++ proof_bytes:        108267
++ end job_number:     2
+- jobs:               3
+- done
+
++ begin job_number:   0 iter_rescue_prime
++ job_name:           "iter_rescue_prime"
++ job_size:           1
++ proof_duration:     291.890618ms
++ verify_duration:    8.847414ms
++ output_bytes:       32
++ proof_bytes:        53721
++ end job_number:     0
+
++ begin job_number:   1 iter_rescue_prime
++ job_name:           "iter_rescue_prime"
++ job_size:           10
++ proof_duration:     277.430619ms
++ verify_duration:    6.984657ms
++ output_bytes:       32
++ proof_bytes:        53197
++ end job_number:     1
+
++ begin job_number:   2 iter_rescue_prime
++ job_name:           "iter_rescue_prime"
++ job_size:           100
++ proof_duration:     383.664496ms
++ verify_duration:    3.998698ms
++ output_bytes:       32
++ proof_bytes:        57330
++ end job_number:     2
+
++ begin job_number:   3 iter_rescue_prime
++ job_name:           "iter_rescue_prime"
++ job_size:           1000
++ proof_duration:     2.190030571s
++ verify_duration:    3.397381ms
++ output_bytes:       32
++ proof_bytes:        71531
++ end job_number:     3
+- jobs:               4
+- done
+/zk-benchmarking
+--------------------------------------------------
+Done: Polygon Miden
+--------------------------------------------------
+
+
+--------------------------------------------------
+Start: RISC Zero
+--------------------------------------------------
+/zk-benchmarking/risczero /zk-benchmarking
+/zk-benchmarking
+--------------------------------------------------
+Done: RISC Zero
+--------------------------------------------------
+
+
+End time: 20230505221652
