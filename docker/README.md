@@ -1,6 +1,6 @@
 # Benchmarking on GCP
 
-This folder contains scripts for 
+This folder contains scripts for
 
 1. building the docker images for automated benchmarking on GCP
 2. setting up a GCP project and service accounts for benchmarking
@@ -14,9 +14,11 @@ You can skip this section if you are only interested in running the benchmarking
 
 - **v0.1-linux-x64**: Debian OS preloaded with rust, ssl, git, and standard build tools, and the benchmarking repository. Suitable for testing locally
 - **v0.11-linux-x64**: Extended from v0.1-linux-x64, with Google Cloud Computing Platform tools installed (gcloud, gsutil)
-- **v0.21-linux-x64**: Extended from v0.11-linux-x64, suitable for deployment as a container image under a GCP VM Instance. The instance will automatically pull the latest code from this repository, build all rust dependencies, compile everything, run all benchmarking, logs to a file, and upload the file to a pre-configured bucket in Google Storage. After this is all done, the instance will self-terminate so it doesn't incur any more billing than necessary. 
+- **v0.21-linux-x64**: Extended from v0.11-linux-x64, suitable for deployment as a container image under a GCP VM Instance. The instance will automatically pull the latest code from this repository, build all rust dependencies, compile everything, run all benchmarking apart from barretenberg, logs to a file, and upload the file to a pre-configured bucket in Google Storage. After this is all done, the instance will self-terminate so it doesn't incur any more billing than necessary.
+- **v0.11-barretenberg-linux-x64**: Alpine preloaded with openmp, with Google Cloud Computing Platform tools installed (gcloud, gsutil), binaries and SRS for external benchmarks for barretenberg.
+- **v0.21-barretenberg-linux-x64**: Extended from v0.11-linux-x64, suitable for deployment as a container image under a GCP VM Instance. The instance will automatically run all benchmarking, log to a file, and upload the file to a pre-configured bucket in Google Storage. After this is all done, the instance will self-terminate so it doesn't incur any more billing than necessary.
 
-You can build **v0.21-linux-x64** using `build.sh` in this folder
+You can build **v0.21-linux-x64** and **v0.21-barretenberg-linux-x64** using `build.sh` in this folder
 
 ## Prepare the GCP project
 
