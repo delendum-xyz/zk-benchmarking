@@ -1,5 +1,5 @@
 use rand::{rngs::StdRng, RngCore, SeedableRng};
-use risc0_zkvm::serde::{from_slice, to_vec};
+use risc0_zkvm::serde::to_vec;
 use risc0_zkvm::sha::{Digest, DIGEST_WORDS};
 use risc0_zkvm::{default_prover, ExecutorEnv, Receipt};
 use rustbench::Benchmark;
@@ -72,8 +72,7 @@ impl Benchmark for Job<'_> {
         let receipt = default_prover()
             .prove_elf(self.env.clone(), &self.image)
             .expect("receipt");
-
-        let guest_output: Digest = from_slice::<Vec<u8>, _>(&receipt.journal)
+        let guest_output: Digest = Digest::try_from(receipt.journal.clone())
             .unwrap()
             .try_into()
             .unwrap();

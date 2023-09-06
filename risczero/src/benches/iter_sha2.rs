@@ -1,4 +1,4 @@
-use risc0_zkvm::serde::{from_slice, to_vec};
+use risc0_zkvm::serde::to_vec;
 use risc0_zkvm::sha::DIGEST_WORDS;
 use risc0_zkvm::{default_prover, ExecutorEnv, Receipt};
 use rustbench::Benchmark;
@@ -78,7 +78,7 @@ impl Benchmark for Job<'_> {
             .prove_elf(self.env.clone(), &self.image)
             .expect("receipt");
 
-        let result = from_slice::<Vec<u8>, _>(&receipt.journal)
+        let result = risc0_zkvm::sha::Digest::try_from(receipt.journal.clone())
             .unwrap()
             .try_into()
             .unwrap();
