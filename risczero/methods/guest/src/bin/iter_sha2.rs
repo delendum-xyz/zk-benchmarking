@@ -1,10 +1,11 @@
 #![no_main]
 
-use risc0_zkvm::guest::env;
 use risc0_zkvm::{
+    guest::env,
     sha,
     sha::{Digest, Sha256},
 };
+
 
 risc0_zkvm::entry!(main);
 
