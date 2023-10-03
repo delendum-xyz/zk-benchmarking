@@ -267,8 +267,9 @@ dependencies = [
 
 [[package]]
 name = "risc0-binfmt"
-version = "0.17.0"
-source = "git+https://github.com/risc0/risc0?branch=main#71fb9369b8a02cd5f8941b2257c0263596b7112c"
+version = "0.18.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ede27631e6b2a946a43db812063453c9701d5d2544d82f9abec2cc12574ebb8e"
 dependencies = [
  "anyhow",
  "elf",
@@ -280,8 +281,9 @@ dependencies = [
 
 [[package]]
 name = "risc0-circuit-rv32im"
-version = "0.17.0"
-source = "git+https://github.com/risc0/risc0?branch=main#71fb9369b8a02cd5f8941b2257c0263596b7112c"
+version = "0.18.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "68e00222152fdc94cacc9b6682b5c0cbe8138f1ee82e80c24a64d9ad2c6d7415"
 dependencies = [
  "anyhow",
  "log",
@@ -293,8 +295,9 @@ dependencies = [
 
 [[package]]
 name = "risc0-core"
-version = "0.17.0"
-source = "git+https://github.com/risc0/risc0?branch=main#71fb9369b8a02cd5f8941b2257c0263596b7112c"
+version = "0.18.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "08605aec93ea22ed83f7f81f42e2d7287a5b0c749d8671f94de9d5994020045c"
 dependencies = [
  "bytemuck",
  "rand_core",
@@ -302,8 +305,9 @@ dependencies = [
 
 [[package]]
 name = "risc0-zkp"
-version = "0.17.0"
-source = "git+https://github.com/risc0/risc0?branch=main#71fb9369b8a02cd5f8941b2257c0263596b7112c"
+version = "0.18.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "28166926bb177824939f4e91083198f9f3da8137aeac32361bd34548c0526fa5"
 dependencies = [
  "anyhow",
  "blake2",
@@ -322,8 +326,9 @@ dependencies = [
 
 [[package]]
 name = "risc0-zkvm"
-version = "0.17.0"
-source = "git+https://github.com/risc0/risc0?branch=main#71fb9369b8a02cd5f8941b2257c0263596b7112c"
+version = "0.18.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ec972152bcaa1a2967e412e22a84f6e2984a95c701bcc7943ca8ca10126ee0a2"
 dependencies = [
  "anyhow",
  "bytemuck",
@@ -346,8 +351,9 @@ dependencies = [
 
 [[package]]
 name = "risc0-zkvm-platform"
-version = "0.17.0"
-source = "git+https://github.com/risc0/risc0?branch=main#71fb9369b8a02cd5f8941b2257c0263596b7112c"
+version = "0.18.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8524b46783b58b00e9b2a4712e837093c975b23cf25bfaf99e1cf69e9011bf6b"
 
 [[package]]
 name = "risczero-benchmark-methods-guest"
