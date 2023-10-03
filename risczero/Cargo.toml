@@ -13,6 +13,7 @@ risczero-benchmark-methods = { path = "methods" }
 risc0-build = { version = "0.18" }
 
 [dependencies]
+blake3 = { version = "1.4", default-features = false }
 clap = { version = "4.0", features = ["derive"] }
 rand = "0.8"
 risczero-benchmark-methods = { workspace = true }
