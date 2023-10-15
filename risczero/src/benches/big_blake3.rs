@@ -24,11 +24,11 @@ pub fn new_jobs() -> Vec<<Job<'static> as Benchmark>::Spec> {
     jobs
 }
 
-const METHOD_ID: [u32; DIGEST_WORDS] = risczero_benchmark_methods::BIG_SHA2_ID;
-const METHOD_PATH: &'static str = risczero_benchmark_methods::BIG_SHA2_PATH;
+const METHOD_ID: [u32; DIGEST_WORDS] = risczero_benchmark_methods::BIG_BLAKE3_ID;
+const METHOD_PATH: &'static str = risczero_benchmark_methods::BIG_BLAKE3_PATH;
 
 impl Benchmark for Job<'_> {
-    const NAME: &'static str = "big_sha2";
+    const NAME: &'static str = "big_blake3";
     type Spec = Vec<u8>;
     type ComputeOut = Digest;
     type ProofType = Receipt;
