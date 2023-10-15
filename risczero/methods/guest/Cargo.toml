@@ -6,5 +6,4 @@ edition = "2021"
 [workspace]
 
 [dependencies]
-blake3 = { version = "1.4", default-features = false }
-risc0-zkvm = { version = "0.18", default-features = false, features = ["std"] }
+risc0-zkvm = { version = "0.13.0", default-features = false }
