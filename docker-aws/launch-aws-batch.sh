@@ -11,5 +11,5 @@ for INSTANCE_TYPE in "${INSTANCE_TYPES[@]}"; do
   else
     image_id=$(aws ssm get-parameters --name /aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-arm64 --query "Parameters[0].Value" --output text)  
   fi
-  aws ec2 run-instances --image-id $image_id --instance-type $INSTANCE_TYPE --user-data file://user-data.sh --iam-instance-profile Arn=$instance_profile_arn
+  aws ec2 run-instances --image-id $image_id --instance-type $INSTANCE_TYPE --user-data file://user-data.sh --iam-instance-profile Arn=$instance_profile_arn --block-device-mapping "[ { \"DeviceName\": \"/dev/xvda\", \"Ebs\": { \"VolumeSize\": 20 } } ]"
 done
