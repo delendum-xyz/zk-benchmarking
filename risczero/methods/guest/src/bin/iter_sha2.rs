@@ -1,16 +1,16 @@
-#![no_std]
 #![no_main]
 
-use risc0_zkvm::guest::env;
 use risc0_zkvm::{
+    guest::env,
     sha,
     sha::{Digest, Sha256},
 };
 
+
 risc0_zkvm::entry!(main);
 
 pub fn main() {
-    let data: &[u8] = env::send_recv(0, &[]);
+    let data: Vec<u8> = env::read();
 
     let mut num_iter: u32;
     num_iter = data[0] as u32;
