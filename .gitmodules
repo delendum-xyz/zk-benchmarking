@@ -1,0 +1,3 @@
+[submodule "barretenberg"]
+	path = barretenberg
+	url = git@github.com:AztecProtocol/barretenberg.git
