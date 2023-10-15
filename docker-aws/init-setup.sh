@@ -1,6 +1,6 @@
-repository_name="zk-benchmarking"
-account_id=$(aws sts get-caller-identity --query "Account" --output text)
-current_region=$(aws configure get region)
+export repository_name="zk-benchmarking"
+export account_id=$(aws sts get-caller-identity --query "Account" --output text)
+export current_region=$(aws configure get region)
 
 # Push local image to ECR
 aws ecr create-repository --repository-name $repository_name
