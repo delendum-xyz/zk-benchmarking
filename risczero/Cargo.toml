@@ -10,17 +10,18 @@ members = [
 
 [workspace.dependencies]
 risczero-benchmark-methods = { path = "methods" }
-risc0-build = { version = "0.13.0" }
+risc0-build = { version = "0.18" }
 
 [dependencies]
+blake3 = { version = "1.4", default-features = false }
 clap = { version = "4.0", features = ["derive"] }
 rand = "0.8"
 risczero-benchmark-methods = { workspace = true }
 rustbench = { path = "../rustbench" }
 serde = "1.0"
-sha2 = "0.10"
-risc0-zkp = { version = "0.13.0", default-features = false }
-risc0-zkvm = { version = "0.13.0", default-features = false, features = ["prove"] }
+sha2 = "0.10.6"
+risc0-zkp = { version = "0.18", default-features = false }
+risc0-zkvm = { version = "0.18", default-features = false, features = ["prove"] }
 
 [features]
 cuda = ["risc0-zkvm/cuda"]

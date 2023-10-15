@@ -20,7 +20,9 @@ struct Cli {
 #[derive(Eq, PartialEq, Subcommand)]
 enum Command {
     All,
+    BigBlake3,
     BigSha2,
+    IterBlake3,
     IterSha2,
 }
 
@@ -34,7 +36,15 @@ fn main() {
         run_jobs::<big_sha2::Job>(&prover, &cli.out, big_sha2::new_jobs());
     }
 
+    if cli.command == Command::All || cli.command == Command::BigBlake3 {
+        run_jobs::<big_blake3::Job>(&prover, &cli.out, big_blake3::new_jobs());
+    }
+
     if cli.command == Command::All || cli.command == Command::IterSha2 {
         run_jobs::<iter_sha2::Job>(&prover, &cli.out, iter_sha2::new_jobs());
+    }
+
+    if cli.command == Command::All || cli.command == Command::IterBlake3 {
+        run_jobs::<iter_blake3::Job>(&prover, &cli.out, iter_blake3::new_jobs());
     }
 }
