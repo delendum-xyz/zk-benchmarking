@@ -12,4 +12,4 @@ fi
 
 instance_profile_arn="arn:aws:iam::${account_id}:instance-profile/benchmark-profile"
 
-aws ec2 run-instances --image-id $image_id --instance-type $INSTANCE_TYPE --user-data file://user-data.sh --iam-instance-profile Arn=$instance_profile_arn
+aws ec2 run-instances --image-id $image_id --instance-type $INSTANCE_TYPE --user-data file://user-data.sh --iam-instance-profile Arn=$instance_profile_arn --block-device-mapping "[ { \"DeviceName\": \"/dev/xvda\", \"Ebs\": { \"VolumeSize\": 20 } } ]"
