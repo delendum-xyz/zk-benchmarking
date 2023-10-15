@@ -5,7 +5,7 @@ current_region=$(aws configure get region)
 # Push local image to ECR
 aws ecr create-repository --repository-name $repository_name
 aws ecr get-login-password | docker login --username AWS --password-stdin $account_id.dkr.ecr.$current_region.amazonaws.com
-docker build -t $account_id.dkr.ecr.$current_region.amazonaws.com/$repository_name .
+docker build -t $account_id.dkr.ecr.$current_region.amazonaws.com/$repository_name --platform linux/amd64 .
 docker push $account_id.dkr.ecr.$current_region.amazonaws.com/$repository_name
 
 # Set up instance profile for EC2 instances
