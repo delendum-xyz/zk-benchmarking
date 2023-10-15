@@ -324,7 +324,51 @@ The table below shows the size of a generated proof in **kilobytes**. Proof size
 
 (Scenario type: building block)
 
-_Coming soon!_
+Proving the inclusion of a leaf to a Merkle tree is an essential building block for real world applications. For the scenario we construct a Merkle path of depth 32 and verify the inclusion of as many leafs as the current `job_size`. So, for job_size=10 we verify 10 Merkle paths of depth 32.
+
+#### Prover performance
+
+The table below shows the time it takes to generate a proof for a given number of merkle path inclusion verifications of depth 32 using a given hash function. This time includes the time needed to generate the witness for the computation. The time shown is in **seconds**.
+
+<table>
+    <thead>
+        <tr>
+            <th rowspan=2 colspan=2>Prover time (sec)</th>
+            <th colspan=2>RP64_256</th>
+        </tr>
+        <tr>
+            <th>1</th>
+            <th>10</th>
+            <th>100</th>
+            <th>1000</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan=8>Apple M2 (4P + 4E cores), 24GB RAM </td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td style="text-align:left">Miden VM</td>
+            <td>0.034</td>
+            <td>0.081</td>
+            <td>0.495</td>
+            <td>8.46</td>
+        </tr>
+        <tr>
+            <td colspan=8>AWS Graviton 3 (64 cores), 128 GB RAM</td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td style="text-align:left">Miden VM</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+    </tbody>
+</table>
+
 
 ### Recursion
 
