@@ -1,6 +1,6 @@
 # Polygon Miden
 
-Benchmarks for [Polygon Miden](https://github.com/maticnetwork/miden/).
+Benchmarks for [Polygon Miden](https://github.com/0xPolygonMiden/miden-vm).
 
 ## Running the benchmarks
 
